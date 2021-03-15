@@ -17,4 +17,8 @@ pod 'FirebaseFirestoreSwift'
 pod 'Firebase/Crashlytics'
 pod 'Firebase/Analytics'
 
+pod 'SDWebImage', '~> 5.0' 
+pod 'JGProgressHUD'
+pod 'SwiftLint'
+
 end
