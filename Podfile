@@ -21,4 +21,7 @@ pod 'SDWebImage', '~> 5.0'
 pod 'JGProgressHUD'
 pod 'SwiftLint'
 
+pod 'ActiveLabel'
+pod 'ActionSheet'
+
 end
