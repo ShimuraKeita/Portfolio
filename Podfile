@@ -28,5 +28,10 @@ pod 'Gallery'
 pod 'YPImagePicker'
 pod 'RealmSwift'
 
+pod 'ProgressHUD'
+pod 'SKPhotoBrowser'
+
+pod 'MessageKit'
+pod 'InputBarAccessoryView'
 
 end
