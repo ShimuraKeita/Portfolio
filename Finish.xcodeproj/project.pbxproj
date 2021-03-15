@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -63,6 +63,12 @@
 		23A627C725FF86E80040C0BB /* Finish */ = {
 			isa = PBXGroup;
 			children = (
+				23A6282B25FF8D500040C0BB /* Model */,
+				23A6282A25FF8D4C0040C0BB /* New Group4 */,
+				23A6282925FF8D490040C0BB /* New Group3 */,
+				23A6282825FF8D470040C0BB /* New Group2 */,
+				23A6282725FF8D440040C0BB /* New Group1 */,
+				23A6282625FF8D3D0040C0BB /* New Group */,
 				23A627C825FF86E80040C0BB /* AppDelegate.swift */,
 				23A627CA25FF86E80040C0BB /* SceneDelegate.swift */,
 				23A627CC25FF86E80040C0BB /* ViewController.swift */,
@@ -72,6 +78,48 @@
 				23A627D625FF86EE0040C0BB /* Info.plist */,
 			);
 			path = Finish;
+			sourceTree = "<group>";
+		};
+		23A6282625FF8D3D0040C0BB /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		23A6282725FF8D440040C0BB /* New Group1 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group1";
+			sourceTree = "<group>";
+		};
+		23A6282825FF8D470040C0BB /* New Group2 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group2";
+			sourceTree = "<group>";
+		};
+		23A6282925FF8D490040C0BB /* New Group3 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group3";
+			sourceTree = "<group>";
+		};
+		23A6282A25FF8D4C0040C0BB /* New Group4 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group4";
+			sourceTree = "<group>";
+		};
+		23A6282B25FF8D500040C0BB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		E147A86BD3359270869663D7 /* Frameworks */ = {
@@ -88,7 +136,6 @@
 				BB2475C2939203E00A5E4511 /* Pods-Finish.debug.xcconfig */,
 				8657E431E3A480D0FE739164 /* Pods-Finish.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
