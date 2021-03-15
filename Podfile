@@ -24,4 +24,9 @@ pod 'SwiftLint'
 pod 'ActiveLabel'
 pod 'ActionSheet'
 
+pod 'Gallery'
+pod 'YPImagePicker'
+pod 'RealmSwift'
+
+
 end
