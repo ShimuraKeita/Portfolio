@@ -65,7 +65,15 @@ class UploadPostController: UIViewController {
     }
     
     @objc func handleUploadPost() {
-        dismiss(animated: true, completion: nil)
+        guard let captin = captionTextView.text else { return }
+        PostService.shared.uploadPost(caption: captin) { (error, ref) in
+            if let error = error {
+                print("DEBUG: Failed to upload tweet with error \(error.localizedDescription)")
+                return
+            }
+
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 
     //MARK: - API

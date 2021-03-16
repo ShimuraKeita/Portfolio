@@ -26,7 +26,7 @@ class InputTextView: UITextView {
         backgroundColor = UIColor(named: "backgroundColor")
         font = UIFont.systemFont(ofSize: 16)
         isScrollEnabled = false
-        heightAnchor.constraint(equalToConstant: 200).isActive = true
+        setHeight(height: 300)
         
         addSubview(placeholderLabel)
         placeholderLabel.anchor(top: topAnchor, left: leftAnchor,
