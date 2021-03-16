@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ConversationsController: UIViewController {
     
     //MARK: - Properties
     
     var user: User? {
-        didSet { }
+        didSet { configureLeftBarButton() }
     }
     
     //MARK: - Lifecyle
@@ -23,6 +24,12 @@ class ConversationsController: UIViewController {
         configure()
     }
     
+    //MARK: - Selectors
+    
+    @objc func handleProfileImageTap() {
+
+    }
+    
     //MARK: - Helpers
     
     func configure() {
@@ -31,11 +38,19 @@ class ConversationsController: UIViewController {
     }
     
     func configureLeftBarButton() {
+        guard let user = user else { return }
+        
         let profileImageView = UIImageView()
         profileImageView.setDimensions(width: 32, height: 32)
+        profileImageView.backgroundColor = .lightGray
         profileImageView.layer.cornerRadius = 32 / 2
         profileImageView.layer.masksToBounds = true
         profileImageView.isUserInteractionEnabled = true
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleProfileImageTap))
+        profileImageView.addGestureRecognizer(tap)
+        
+        profileImageView.sd_setImage(with: user.profileImageUrl, completed: nil)
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileImageView)
     }

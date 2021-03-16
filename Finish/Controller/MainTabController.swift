@@ -37,7 +37,7 @@ class MainTabController: UITabBarController {
         
         
         view.backgroundColor = UIColor(named: "backgroundColor")
-        signOut() 
+//        signOut() 
         authenticateUserAndConfigureUI()
     }
     
@@ -89,16 +89,16 @@ class MainTabController: UITabBarController {
     func configureViewControllers() {
         
         let conversations = ConversationsController()
-        let nav4 = templateNavigationController(image: UIImage(named: "message"), rootViewController: conversations)
+        let nav1 = templateNavigationController(image: UIImage(named: "message"), rootViewController: conversations)
         
         let feed = FeedController()
-        let nav1 = templateNavigationController(image: UIImage(named: "clock"), rootViewController: feed)
+        let nav2 = templateNavigationController(image: UIImage(named: "clock"), rootViewController: feed)
         
         let explore = SearchController()
-        let nav2 = templateNavigationController(image: UIImage(named: "magnifyingglass"), rootViewController: explore)
+        let nav3 = templateNavigationController(image: UIImage(named: "magnifyingglass"), rootViewController: explore)
         
         let notifications = NotificationsController()
-        let nav3 = templateNavigationController(image: UIImage(named: "bell"), rootViewController: notifications)
+        let nav4 = templateNavigationController(image: UIImage(named: "bell"), rootViewController: notifications)
 
         viewControllers = [nav1, nav2, nav3, nav4]
     }
