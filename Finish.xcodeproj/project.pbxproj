@@ -27,6 +27,7 @@
 		23876E262600CF34004046A6 /* UploadPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23876E252600CF34004046A6 /* UploadPostController.swift */; };
 		23876E292600D37B004046A6 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23876E282600D37B004046A6 /* InputTextView.swift */; };
 		23876E2C2600D55D004046A6 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23876E2B2600D55D004046A6 /* PostService.swift */; };
+		23876E2F2600F1C5004046A6 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23876E2E2600F1C5004046A6 /* Post.swift */; };
 		23A627C925FF86E80040C0BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A627C825FF86E80040C0BB /* AppDelegate.swift */; };
 		23A627CB25FF86E80040C0BB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A627CA25FF86E80040C0BB /* SceneDelegate.swift */; };
 		23A627CD25FF86E80040C0BB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A627CC25FF86E80040C0BB /* ViewController.swift */; };
@@ -58,6 +59,7 @@
 		23876E252600CF34004046A6 /* UploadPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPostController.swift; sourceTree = "<group>"; };
 		23876E282600D37B004046A6 /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		23876E2B2600D55D004046A6 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
+		23876E2E2600F1C5004046A6 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		23A627C525FF86E80040C0BB /* Finish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Finish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23A627C825FF86E80040C0BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23A627CA25FF86E80040C0BB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				23876E222600C884004046A6 /* User.swift */,
+				23876E2E2600F1C5004046A6 /* Post.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				23A627C925FF86E80040C0BB /* AppDelegate.swift in Sources */,
 				23876DD626004376004046A6 /* FeedController.swift in Sources */,
 				23876DED26004FD7004046A6 /* RegistrationController.swift in Sources */,
+				23876E2F2600F1C5004046A6 /* Post.swift in Sources */,
 				23876DDC26004461004046A6 /* NotificationsController.swift in Sources */,
 				23876DF026005158004046A6 /* CustomTextField.swift in Sources */,
 				23876E262600CF34004046A6 /* UploadPostController.swift in Sources */,
