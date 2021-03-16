@@ -38,6 +38,8 @@ class UploadPostController: UIViewController {
         return iv
     }()
     
+    private let captionTextView = InputTextView()
+    
     //MARK: - Lifecycle
     
     init(user: User) {
@@ -73,6 +75,14 @@ class UploadPostController: UIViewController {
     func configureUI() {
         view.backgroundColor = UIColor(named: "backgroundColor")
         
+        let imageCaptionStack = UIStackView(arrangedSubviews: [profileImageView, captionTextView])
+        imageCaptionStack.axis = .horizontal
+        imageCaptionStack.spacing = 12
+
+        view.addSubview(imageCaptionStack)
+        imageCaptionStack.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor,
+                                 right: view.rightAnchor, paddingTop: 16, paddingLeft: 16,
+                                 paddingRight: 16)
     }
     
     func configureNavigationBar() {
