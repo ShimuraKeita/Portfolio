@@ -107,7 +107,37 @@ class RegistrationController: UIViewController {
     }
     
     @objc func handleRegistration() {
+        showLoader(true, withText: "新規作成中")
+        guard let profileImage = profileImage else {
+            showLoader(false)
+            ProgressHUD.showError("プロフィール画像が選択されていません。")
+            return
+        }
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        guard let repeatPassword = repeatPasswordTextField.text else { return }
+        guard let fullname = fullnameTextField.text else { return }
+        guard let username = usernameTextField.text?.lowercased() else { return }
         
+        if password == repeatPassword {
+            let credentials = AuthCredentials(email: email, password: password, fullname: fullname, username: username, profileImage: profileImage)
+            
+            AuthService.shared.registerUser(credentials: credentials) { (error, ref) in
+                if let error = error {
+                    self.showLoader(false)
+                    ProgressHUD.showError(error.localizedDescription)
+                }
+                
+                self.showLoader(false)
+                guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+                guard let tab = window.rootViewController as? MainTabController else { return }
+                
+                self.dismiss(animated: true, completion: nil)
+            }
+        } else {
+            self.showLoader(false)
+            ProgressHUD.showError("パスワードが一致しません。")
+        }
     }
     
     @objc func handleShowLogin() {
