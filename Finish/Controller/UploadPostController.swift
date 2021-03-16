@@ -53,7 +53,7 @@ class UploadPostController: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "キャンセル", style: .plain, target: self, action: #selector(handleCancel))
-        navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "buttonTextColor")
+        navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "buttonTitleColor")
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: actionButton)
     }
