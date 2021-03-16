@@ -1,5 +1,5 @@
 //
-//  MainTabController.swift
+//  NotificationsController.swift
 //  Finish
 //
 //  Created by 志村　啓太 on 2021/03/16.
@@ -7,21 +7,19 @@
 
 import UIKit
 
-class MainTabController: UITabBarController {
+class NotificationsController: UIViewController {
     
     //MARK: - Properties
     
-    //MARK: - Lifecycle
+    //MARK: - Lifecyle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        configureViewControllers()
     }
     
     //MARK: - Helpers
     
-    func configureViewControllers() {
+    func configure() {
         
     }
 }
