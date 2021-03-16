@@ -83,6 +83,22 @@ class LoginController: UIViewController {
         checkForStatus()
     }
     
+    @objc func keybordWillShow() {
+        if view.frame.origin.y == 0 {
+            self.view.frame.origin.y -= 50
+        }
+    }
+    
+    @objc func keybordWillHide() {
+        if view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
     //MARK: - Helpers
     
     func checkForStatus() {
@@ -125,5 +141,10 @@ class LoginController: UIViewController {
     func configureTextFieldObservers() {
         emailTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keybordWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keybordWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        self.view.addGestureRecognizer(tapGesture)
     }
 }
