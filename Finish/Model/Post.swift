@@ -12,13 +12,15 @@ struct Post {
     let postID: String
     var likes: Int
     var timestamp: Date!
+    var user: User
     var didLike = false
     var replyingTo: String?
     
     var isReply: Bool { return replyingTo != nil }
     
-    init(postID: String, dictionary: [String: Any]) {
+    init(user: User, postID: String, dictionary: [String: Any]) {
         self.postID = postID
+        self.user = user
         
         self.caption = dictionary["caption"] as? String ?? ""
         self.likes = dictionary["likes"] as? Int ?? 0
@@ -32,3 +34,4 @@ struct Post {
         }
     }
 }
+

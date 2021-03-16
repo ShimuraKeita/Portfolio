@@ -113,6 +113,7 @@ class PostCell: UICollectionViewCell {
         guard let post = post else { return }
         
         captionLabel.text = post.caption
+        
     }
 
     func createButton(withImageName imageName: String) -> UIButton {
