@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import Firebase
+import ProgressHUD
+import SafariServices
 
 class RegistrationController: UIViewController {
     
@@ -112,7 +115,9 @@ class RegistrationController: UIViewController {
     }
     
     @objc func handleShowTeamsOfService() {
-        
+        let webPage = "https://shimurakeita.github.io/TermsOfService-COCOLOTalk-/"
+        let safariVC = SFSafariViewController(url: NSURL(string: webPage)! as URL)
+        present(safariVC, animated: true, completion: nil)
     }
     
     @objc func textDidChange(sender: UITextField) {
