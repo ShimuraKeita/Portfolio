@@ -17,12 +17,21 @@ class FeedController: UIViewController {
         super.viewDidLoad()
         
         configure()
+        fetchPosts()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.barStyle = .default
         navigationController?.navigationBar.isHidden = false
+    }
+    
+    //MARK: - API
+    
+    func fetchPosts() {
+        PostService.shared.fetchPosts { (posts) in
+            
+        }
     }
     
     //MARK: - Helpers
