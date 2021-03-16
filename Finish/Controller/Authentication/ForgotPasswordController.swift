@@ -45,7 +45,9 @@ class ForgotPasswordController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureUI()
+        configureNotificationObserver()
     }
     
     // MARK: Selector
@@ -56,6 +58,10 @@ class ForgotPasswordController: UIViewController {
 
     @objc func handleshowLoginButton() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     // MARK: Helpers
@@ -80,5 +86,10 @@ class ForgotPasswordController: UIViewController {
         view.addSubview(showLoginButton)
         showLoginButton.anchor(top: stack.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,
                              paddingTop: 50, paddingLeft: 30, paddingRight: 30)
+    }
+    
+    func configureNotificationObserver() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        self.view.addGestureRecognizer(tapGesture)
     }
 }
