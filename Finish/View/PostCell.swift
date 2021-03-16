@@ -11,13 +11,17 @@ class PostCell: UICollectionViewCell {
     
     //MARK: - Properties
     
+    var post: Post? {
+        didSet { configure() }
+    }
+    
     private lazy var profileImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
         iv.setDimensions(width: 48, height: 48)
         iv.layer.cornerRadius = 48 / 2
-        iv.backgroundColor = .systemPink
+        iv.backgroundColor = .lightGray
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleProfileImageTapped))
         iv.addGestureRecognizer(tap)
@@ -104,6 +108,12 @@ class PostCell: UICollectionViewCell {
     }
 
     //MARK: - Helpers
+    
+    func configure() {
+        guard let post = post else { return }
+        
+        captionLabel.text = post.caption
+    }
 
     func createButton(withImageName imageName: String) -> UIButton {
         let button = UIButton(type: .system)
