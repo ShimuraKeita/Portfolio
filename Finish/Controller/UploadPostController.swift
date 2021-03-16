@@ -91,6 +91,8 @@ class UploadPostController: UIViewController {
         imageCaptionStack.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor,
                                  right: view.rightAnchor, paddingTop: 16, paddingLeft: 16,
                                  paddingRight: 16)
+        
+        profileImageView.sd_setImage(with: user.profileImageUrl, completed: nil)
     }
     
     func configureNavigationBar() {
