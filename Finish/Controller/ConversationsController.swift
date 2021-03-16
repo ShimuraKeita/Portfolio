@@ -11,6 +11,10 @@ class ConversationsController: UIViewController {
     
     //MARK: - Properties
     
+    var user: User? {
+        didSet { }
+    }
+    
     //MARK: - Lifecyle
     
     override func viewDidLoad() {
@@ -24,5 +28,15 @@ class ConversationsController: UIViewController {
     func configure() {
         view.backgroundColor = UIColor(named: "backgroundColor")
         navigationItem.title = "トーク"
+    }
+    
+    func configureLeftBarButton() {
+        let profileImageView = UIImageView()
+        profileImageView.setDimensions(width: 32, height: 32)
+        profileImageView.layer.cornerRadius = 32 / 2
+        profileImageView.layer.masksToBounds = true
+        profileImageView.isUserInteractionEnabled = true
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileImageView)
     }
 }
