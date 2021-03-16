@@ -10,6 +10,8 @@ import UIKit
 class RegistrationController: UIViewController {
     
     //MARK: - Properties
+    
+    private var viewModel = RegistrationViewModel()
         
     private var profileImage: UIImage?
     
@@ -89,6 +91,7 @@ class RegistrationController: UIViewController {
         super.viewDidLoad()
         
         configure()
+        configureTextFieldObservers()
     }
     
     //MARK: - Selectors
@@ -112,7 +115,35 @@ class RegistrationController: UIViewController {
         
     }
     
+    @objc func textDidChange(sender: UITextField) {
+        if sender == emailTextField {
+            viewModel.email = sender.text
+        } else if sender == passwordTextField {
+            viewModel.password = sender.text
+        } else if sender == repeatPasswordTextField {
+            viewModel.repeatPassword = sender.text
+        } else if sender == fullnameTextField {
+            viewModel.fullname = sender.text
+        } else {
+            viewModel.username = sender.text
+        }
+        
+        checkForStatus()
+    }
+    
     //MARK: - Helpers
+    
+    func checkForStatus() {
+        if viewModel.formIsValid {
+            registrationButton.isEnabled = true
+            registrationButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
+            registrationButton.setTitleColor(UIColor(named: "buttonTextColor"), for: .normal)
+        } else {
+            registrationButton.isEnabled = false
+            registrationButton.backgroundColor = .lightGray
+            registrationButton.setTitleColor(.white, for: .normal)
+        }
+    }
     
     func configure() {
         view.backgroundColor = UIColor(named: "loginBackgroundColor")
@@ -139,6 +170,14 @@ class RegistrationController: UIViewController {
         goToLoginButton.anchor(left: view.leftAnchor,
                                       bottom: view.safeAreaLayoutGuide.bottomAnchor,
                                       right: view.rightAnchor, paddingLeft: 32, paddingBottom: 16, paddingRight: 32)
+    }
+    
+    func configureTextFieldObservers() {
+        emailTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        repeatPasswordTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        fullnameTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        usernameTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
     }
 }
 
