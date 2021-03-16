@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23876DCF260040C5004046A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 23876DCE260040C5004046A6 /* GoogleService-Info.plist */; };
 		23A627C925FF86E80040C0BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A627C825FF86E80040C0BB /* AppDelegate.swift */; };
 		23A627CB25FF86E80040C0BB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A627CA25FF86E80040C0BB /* SceneDelegate.swift */; };
 		23A627CD25FF86E80040C0BB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A627CC25FF86E80040C0BB /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		05A1E1F6E8520EDE086DE846 /* Pods_Finish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Finish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		23876DCE260040C5004046A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		23A627C525FF86E80040C0BB /* Finish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Finish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23A627C825FF86E80040C0BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23A627CA25FF86E80040C0BB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,11 +66,11 @@
 			isa = PBXGroup;
 			children = (
 				23A6282B25FF8D500040C0BB /* Model */,
-				23A6282A25FF8D4C0040C0BB /* New Group4 */,
-				23A6282925FF8D490040C0BB /* New Group3 */,
-				23A6282825FF8D470040C0BB /* New Group2 */,
-				23A6282725FF8D440040C0BB /* New Group1 */,
-				23A6282625FF8D3D0040C0BB /* New Group */,
+				23A6282A25FF8D4C0040C0BB /* View */,
+				23A6282925FF8D490040C0BB /* ViewModel */,
+				23A6282825FF8D470040C0BB /* Controller */,
+				23A6282725FF8D440040C0BB /* API */,
+				23A6282625FF8D3D0040C0BB /* Utils */,
 				23A627C825FF86E80040C0BB /* AppDelegate.swift */,
 				23A627CA25FF86E80040C0BB /* SceneDelegate.swift */,
 				23A627CC25FF86E80040C0BB /* ViewController.swift */,
@@ -76,43 +78,44 @@
 				23A627D125FF86EE0040C0BB /* Assets.xcassets */,
 				23A627D325FF86EE0040C0BB /* LaunchScreen.storyboard */,
 				23A627D625FF86EE0040C0BB /* Info.plist */,
+				23876DCE260040C5004046A6 /* GoogleService-Info.plist */,
 			);
 			path = Finish;
 			sourceTree = "<group>";
 		};
-		23A6282625FF8D3D0040C0BB /* New Group */ = {
+		23A6282625FF8D3D0040C0BB /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = "New Group";
+			path = Utils;
 			sourceTree = "<group>";
 		};
-		23A6282725FF8D440040C0BB /* New Group1 */ = {
+		23A6282725FF8D440040C0BB /* API */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = "New Group1";
+			path = API;
 			sourceTree = "<group>";
 		};
-		23A6282825FF8D470040C0BB /* New Group2 */ = {
+		23A6282825FF8D470040C0BB /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = "New Group2";
+			path = Controller;
 			sourceTree = "<group>";
 		};
-		23A6282925FF8D490040C0BB /* New Group3 */ = {
+		23A6282925FF8D490040C0BB /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = "New Group3";
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		23A6282A25FF8D4C0040C0BB /* New Group4 */ = {
+		23A6282A25FF8D4C0040C0BB /* View */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = "New Group4";
+			path = View;
 			sourceTree = "<group>";
 		};
 		23A6282B25FF8D500040C0BB /* Model */ = {
@@ -199,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23A627D525FF86EE0040C0BB /* LaunchScreen.storyboard in Resources */,
+				23876DCF260040C5004046A6 /* GoogleService-Info.plist in Resources */,
 				23A627D225FF86EE0040C0BB /* Assets.xcassets in Resources */,
 				23A627D025FF86E80040C0BB /* Main.storyboard in Resources */,
 			);
