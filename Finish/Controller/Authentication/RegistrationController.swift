@@ -10,6 +10,8 @@ import UIKit
 class RegistrationController: UIViewController {
     
     //MARK: - Properties
+        
+    private var profileImage: UIImage?
     
     private let selectPhotoButton: UIButton = {
         let button = UIButton(type: .system)
@@ -92,7 +94,10 @@ class RegistrationController: UIViewController {
     //MARK: - Selectors
     
     @objc func handleSelectPhoto() {
-        
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        present(imagePicker, animated: true, completion: nil)
     }
     
     @objc func handleRegistration() {
@@ -134,5 +139,27 @@ class RegistrationController: UIViewController {
         goToLoginButton.anchor(left: view.leftAnchor,
                                       bottom: view.safeAreaLayoutGuide.bottomAnchor,
                                       right: view.rightAnchor, paddingLeft: 32, paddingBottom: 16, paddingRight: 32)
+    }
+}
+
+//MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+
+extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        guard let profileImage = info[.editedImage] as? UIImage else { return }
+        self.profileImage = profileImage
+        
+        selectPhotoButton.layer.cornerRadius = 128 / 2
+        selectPhotoButton.layer.masksToBounds = true
+        selectPhotoButton.imageView?.contentMode = .scaleAspectFill
+        selectPhotoButton.imageView?.clipsToBounds = true
+        selectPhotoButton.layer.borderColor = UIColor.white.cgColor
+        selectPhotoButton.layer.borderWidth = 3
+        
+        self.selectPhotoButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        
+        dismiss(animated: true, completion: nil)
     }
 }

@@ -27,7 +27,7 @@ class LoginController: UIViewController {
     
     private let loginButton: CustomButton = {
         let button = CustomButton(title: "ログイン", type: .system)
-//        button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
         return button
     }()
     
@@ -36,14 +36,14 @@ class LoginController: UIViewController {
         button.setTitle("パスワードをお忘れですか？", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.setTitleColor(.white, for: .normal)
-//        button.addTarget(self, action: #selector(handleShowLoginForgotPassword), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleShowLoginForgotPassword), for: .touchUpInside)
         return button
     }()
 
     private let goToRegistrationButton: UIButton = {
         let button = UIButton(type: .system)
         button.attributedTitle(firstPart: "新規アカウント作成は", secondPart: "こちら")
-//        button.addTarget(self, action: #selector(handleShowRegistration), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleShowRegistration), for: .touchUpInside)
         return button
     }()
     
