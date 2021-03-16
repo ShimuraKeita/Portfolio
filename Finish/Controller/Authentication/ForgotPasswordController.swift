@@ -13,6 +13,8 @@ class ForgotPasswordController: UIViewController {
     
     // MARK: Properties
     
+    private var viewModel = ForgotPasswordViewModel()
+    
     private let resetPasswordLabel: UILabel = {
         let label = UILabel()
         label.text = "パスワード再設定"
@@ -60,11 +62,29 @@ class ForgotPasswordController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    @objc func textDidChange(sender: UITextField) {
+        guard sender == emailTextField else { return }
+        viewModel.email = sender.text
+        checkForStatus()
+    }
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
     
     // MARK: Helpers
+    
+    func checkForStatus() {
+        if viewModel.formIsValid {
+            sendButton.isEnabled = true
+            sendButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
+            sendButton.setTitleColor(UIColor(named: "buttonTextColor"), for: .normal)
+        } else {
+            sendButton.isEnabled = false
+            sendButton.backgroundColor = .lightGray
+            sendButton.setTitleColor(.white, for: .normal)
+        }
+    }
     
     func configureUI() {
         view.backgroundColor = UIColor(named: "loginBackgroundColor")
@@ -89,6 +109,8 @@ class ForgotPasswordController: UIViewController {
     }
     
     func configureNotificationObserver() {
+        emailTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         self.view.addGestureRecognizer(tapGesture)
     }
