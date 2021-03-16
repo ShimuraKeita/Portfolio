@@ -95,7 +95,7 @@ class ForgotPasswordController: UIViewController {
         if viewModel.formIsValid {
             sendButton.isEnabled = true
             sendButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
-            sendButton.setTitleColor(UIColor(named: "buttonTextColor"), for: .normal)
+            sendButton.setTitleColor(UIColor(named: "buttonTitleColor"), for: .normal)
         } else {
             sendButton.isEnabled = false
             sendButton.backgroundColor = .lightGray

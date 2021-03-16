@@ -189,7 +189,7 @@ class RegistrationController: UIViewController {
         if viewModel.formIsValid {
             registrationButton.isEnabled = true
             registrationButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
-            registrationButton.setTitleColor(UIColor(named: "buttonTextColor"), for: .normal)
+            registrationButton.setTitleColor(UIColor(named: "buttonTitleColor"), for: .normal)
         } else {
             registrationButton.isEnabled = false
             registrationButton.backgroundColor = .lightGray

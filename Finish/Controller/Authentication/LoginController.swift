@@ -125,7 +125,7 @@ class LoginController: UIViewController {
         if viewModel.formIsValid {
             loginButton.isEnabled = true
             loginButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
-            loginButton.setTitleColor(UIColor(named: "buttonTextColor"), for: .normal)
+            loginButton.setTitleColor(UIColor(named: "buttonTitleColor"), for: .normal)
         } else {
             loginButton.isEnabled = false
             loginButton.backgroundColor = .lightGray
