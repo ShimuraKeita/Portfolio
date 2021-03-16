@@ -11,6 +11,8 @@ class LoginController: UIViewController {
     
     //MARK: - Properties
     
+    private var viewModel = LoginViewModel()
+    
     private let iconImage: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(systemName: "bubble.right")
@@ -53,6 +55,7 @@ class LoginController: UIViewController {
         super.viewDidLoad()
         
         configure()
+        configureTextFieldObservers()
     }
     
     //MARK: - Selectors
@@ -70,7 +73,29 @@ class LoginController: UIViewController {
         navigationController?.pushViewController(controller, animated: true)
     }
     
+    @objc func textDidChange(sender: UITextField) {
+        if sender == emailTextField {
+            viewModel.email = sender.text
+        } else {
+            viewModel.password = sender.text
+        }
+        
+        checkForStatus()
+    }
+    
     //MARK: - Helpers
+    
+    func checkForStatus() {
+        if viewModel.formIsValid {
+            loginButton.isEnabled = true
+            loginButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
+            loginButton.setTitleColor(UIColor(named: "buttonTextColor"), for: .normal)
+        } else {
+            loginButton.isEnabled = false
+            loginButton.backgroundColor = .lightGray
+            loginButton.setTitleColor(.white, for: .normal)
+        }
+    }
     
     func configure() {
         view.backgroundColor = UIColor(named: "loginBackgroundColor")
@@ -95,5 +120,10 @@ class LoginController: UIViewController {
         goToRegistrationButton.anchor(left: view.leftAnchor,
                                       bottom: view.safeAreaLayoutGuide.bottomAnchor,
                                       right: view.rightAnchor, paddingLeft: 32, paddingBottom: 16, paddingRight: 32)
+    }
+    
+    func configureTextFieldObservers() {
+        emailTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
     }
 }
