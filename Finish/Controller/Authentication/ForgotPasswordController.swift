@@ -61,7 +61,18 @@ class ForgotPasswordController: UIViewController {
     // MARK: Selector
     
     @objc func handleEmailSend() {
+        guard let email = emailTextField.text else { return }
         
+        showLoader(true)
+        AuthService.shared.sendPasswordReset(withEmail: email) { error in
+            if let error = error {
+                self.showError(error.localizedDescription)
+                self.showLoader(false)
+                return
+            }
+            
+            self.delegate?.controllerDidSendResetPasswordLink(self)
+        }
     }
 
     @objc func handleshowLoginButton() {

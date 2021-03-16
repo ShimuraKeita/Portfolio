@@ -57,9 +57,10 @@ struct AuthService {
                 }
             }
         }
-        
-        func sendPasswordReset(withEmail email: String, completion: @escaping(Error?) -> Void) {
-            Auth.auth().languageCode = "ja_JP"
-            Auth.auth().sendPasswordReset(withEmail: email, completion: completion)
-        }
     }
+    
+    func sendPasswordReset(withEmail email: String, completion: @escaping(Error?) -> Void) {
+        Auth.auth().languageCode = "ja_JP"
+        Auth.auth().sendPasswordReset(withEmail: email, completion: completion)
+    }
+}
