@@ -27,7 +27,7 @@ class MainTabController: UITabBarController {
         super.viewDidLoad()
         
         
-        view.backgroundColor = .systemPink
+        view.backgroundColor = UIColor(named: "backgroundColor")
         signOut() 
         authenticateUserAndConfigureUI()
     }
