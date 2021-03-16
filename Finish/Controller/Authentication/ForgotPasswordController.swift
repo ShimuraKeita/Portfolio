@@ -9,11 +9,17 @@ import UIKit
 import Firebase
 import ProgressHUD
 
+protocol ForgotPasswordControllerDelegate: class {
+    func controllerDidSendResetPasswordLink(_ controller: ForgotPasswordController)
+}
+
 class ForgotPasswordController: UIViewController {
     
     // MARK: Properties
     
     private var viewModel = ForgotPasswordViewModel()
+    weak var delegate: ForgotPasswordControllerDelegate?
+    var email: String?
     
     private let resetPasswordLabel: UILabel = {
         let label = UILabel()
@@ -87,6 +93,10 @@ class ForgotPasswordController: UIViewController {
     }
     
     func configureUI() {
+        
+        emailTextField.text = email
+        viewModel.email = email
+        
         view.backgroundColor = UIColor(named: "loginBackgroundColor")
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isHidden = true

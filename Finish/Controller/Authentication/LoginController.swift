@@ -66,6 +66,7 @@ class LoginController: UIViewController {
     
     @objc func handleShowLoginForgotPassword() {
         let controller = ForgotPasswordController()
+        controller.delegate = self
         navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -147,5 +148,14 @@ class LoginController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keybordWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         self.view.addGestureRecognizer(tapGesture)
+    }
+}
+
+// MARK: - ResetPasswordControllerDelegate
+
+extension LoginController: ForgotPasswordControllerDelegate {
+    func controllerDidSendResetPasswordLink(_ controller: ForgotPasswordController) {
+        navigationController?.popViewController(animated: true)
+        showNotification("パスワードをリセットするためのリンクをメールに送信しました")
     }
 }

@@ -20,6 +20,7 @@
 		23876DF326005195004046A6 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23876DF226005195004046A6 /* CustomButton.swift */; };
 		23876DF6260055D8004046A6 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23876DF5260055D8004046A6 /* AuthViewModel.swift */; };
 		23876E17260059F7004046A6 /* ForgotPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23876E16260059F7004046A6 /* ForgotPasswordController.swift */; };
+		23876E1A2600C037004046A6 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23876E192600C037004046A6 /* AuthService.swift */; };
 		23A627C925FF86E80040C0BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A627C825FF86E80040C0BB /* AppDelegate.swift */; };
 		23A627CB25FF86E80040C0BB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A627CA25FF86E80040C0BB /* SceneDelegate.swift */; };
 		23A627CD25FF86E80040C0BB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A627CC25FF86E80040C0BB /* ViewController.swift */; };
@@ -44,6 +45,7 @@
 		23876DF226005195004046A6 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		23876DF5260055D8004046A6 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		23876E16260059F7004046A6 /* ForgotPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordController.swift; sourceTree = "<group>"; };
+		23876E192600C037004046A6 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		23A627C525FF86E80040C0BB /* Finish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Finish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23A627C825FF86E80040C0BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23A627CA25FF86E80040C0BB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 		23A6282725FF8D440040C0BB /* API */ = {
 			isa = PBXGroup;
 			children = (
+				23876E192600C037004046A6 /* AuthService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				23876DD32600427E004046A6 /* MainTabController.swift in Sources */,
 				23A627CB25FF86E80040C0BB /* SceneDelegate.swift in Sources */,
 				23876DE926004FC0004046A6 /* LoginController.swift in Sources */,
+				23876E1A2600C037004046A6 /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
