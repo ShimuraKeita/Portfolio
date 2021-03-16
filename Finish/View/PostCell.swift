@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol PostCellDelegate: class {
+    func handleProfileImageTapped(_ cell: PostCell)
+}
+
 class PostCell: UICollectionViewCell {
     
     //MARK: - Properties
@@ -14,6 +18,8 @@ class PostCell: UICollectionViewCell {
     var post: Post? {
         didSet { configure() }
     }
+    
+    weak var delegate: PostCellDelegate?
     
     private lazy var profileImageView: UIImageView = {
         let iv = UIImageView()
@@ -96,7 +102,7 @@ class PostCell: UICollectionViewCell {
     //MARK: - Selectors
     
     @objc func handleProfileImageTapped() {
-        
+        delegate?.handleProfileImageTapped(self)
     }
     
     @objc func handleCommentTapped() {
