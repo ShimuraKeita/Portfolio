@@ -11,6 +11,8 @@ class ProfileHeader: UICollectionReusableView {
     
     //MARK: - Properties
     
+    private let filterBar = ProfileFilterView()
+    
     private let profileImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
@@ -122,6 +124,9 @@ class ProfileHeader: UICollectionReusableView {
         bioButtonStack.anchor(top: dataLabel.bottomAnchor, left: leftAnchor,
                                        right: rightAnchor, paddingTop: 16,
                                        paddingLeft: 24, paddingRight: 24)
+        
+        addSubview(filterBar)
+        filterBar.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 50)
     }
     
     required init?(coder: NSCoder) {
