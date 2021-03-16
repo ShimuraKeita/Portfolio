@@ -111,9 +111,15 @@ class PostCell: UICollectionViewCell {
     
     func configure() {
         guard let post = post else { return }
+        let viewModel = PostViewModel(post: post)
         
         captionLabel.text = post.caption
+                
+        profileImageView.sd_setImage(with: viewModel.profileImageUrl)
+        infoLabel.attributedText = viewModel.userInfoText
         
+        likeButton.tintColor = viewModel.likeButtonTintColor
+        likeButton.setImage(viewModel.likeButtonImage, for: .normal)
     }
 
     func createButton(withImageName imageName: String) -> UIButton {

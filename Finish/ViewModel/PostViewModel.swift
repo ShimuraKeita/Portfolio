@@ -49,7 +49,7 @@ struct PostViewModel {
             attributes: [.font: UIFont.systemFont(ofSize: 14),
                          .foregroundColor: UIColor.lightGray]))
         
-        title.append(NSAttributedString(string: " · \(user.sick)",
+        title.append(NSAttributedString(string: " \(user.sick)",
             attributes: [.font: UIFont.systemFont(ofSize: 14),
                          .foregroundColor: UIColor.lightGray]))
         
