@@ -28,6 +28,7 @@ class MainTabController: UITabBarController {
         
         
         view.backgroundColor = .systemPink
+        signOut() 
         authenticateUserAndConfigureUI()
     }
     
@@ -46,6 +47,13 @@ class MainTabController: UITabBarController {
         }
     }
     
+    func signOut() {
+        do {
+            try Auth.auth().signOut()
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
     
     //MARK: - Selectors
     
