@@ -11,6 +11,8 @@ class UploadPostController: UIViewController {
     
     //MARK: - Properties
     
+    private let user: User
+    
     private lazy var actionButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .systemPink
@@ -26,12 +28,32 @@ class UploadPostController: UIViewController {
         return button
     }()
     
+    private let profileImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFit
+        iv.clipsToBounds = true
+        iv.setDimensions(width: 48, height: 48)
+        iv.layer.cornerRadius = 48 / 2
+        iv.backgroundColor = .lightGray
+        return iv
+    }()
+    
     //MARK: - Lifecycle
+    
+    init(user: User) {
+        self.user = user
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
+        configureNavigationBar()
     }
 
     //MARK: - Selectors
@@ -50,6 +72,10 @@ class UploadPostController: UIViewController {
     
     func configureUI() {
         view.backgroundColor = UIColor(named: "backgroundColor")
+        
+    }
+    
+    func configureNavigationBar() {
         navigationController?.navigationBar.isTranslucent = false
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "キャンセル", style: .plain, target: self, action: #selector(handleCancel))
