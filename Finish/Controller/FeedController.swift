@@ -13,6 +13,10 @@ class FeedController: UICollectionViewController {
     
     //MARK: - Properties
     
+    private var posts = [Post]() {
+        didSet { collectionView.reloadData() }
+    }
+    
     //MARK: - Lifecyle
     
     override func viewDidLoad() {
@@ -32,7 +36,7 @@ class FeedController: UICollectionViewController {
     
     func fetchPosts() {
         PostService.shared.fetchPosts { (posts) in
-            
+            self.posts = posts
         }
     }
     
@@ -46,11 +50,11 @@ class FeedController: UICollectionViewController {
     }
 }
 
-//MARK: - UICollectionViewDataSource
+//MARK: - UICollectionViewDelegate/DataSource
 
 extension FeedController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return posts.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
