@@ -65,7 +65,8 @@ class LoginController: UIViewController {
     }
     
     @objc func handleShowLoginForgotPassword() {
-        
+        let controller = ForgotPasswordController()
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     @objc func handleShowRegistration() {
