@@ -7,7 +7,9 @@
 
 import UIKit
 
-class FeedController: UIViewController {
+private let reuseIdentifier = "PostCell"
+
+class FeedController: UICollectionViewController {
     
     //MARK: - Properties
     
@@ -16,7 +18,7 @@ class FeedController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configure()
+        configureUI()
         fetchPosts()
     }
     
@@ -36,8 +38,31 @@ class FeedController: UIViewController {
     
     //MARK: - Helpers
     
-    func configure() {
+    func configureUI() {
         view.backgroundColor = UIColor(named: "backgroundColor")
         navigationItem.title = "タイムライン"
+        
+        collectionView.register(PostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+    }
+}
+
+//MARK: - UICollectionViewDataSource
+
+extension FeedController {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PostCell
+        return cell
+    }
+}
+
+//MARK: - UICollectionViewDelegateFlowLayout
+
+extension FeedController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 200)
     }
 }

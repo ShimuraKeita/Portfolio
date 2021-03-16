@@ -16,7 +16,7 @@ class NotificationsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configure()
+        configureUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -27,7 +27,7 @@ class NotificationsController: UIViewController {
     
     //MARK: - Helpers
     
-    func configure() {
+    func configureUI() {
         view.backgroundColor = UIColor(named: "backgroundColor")
         navigationItem.title = "通知"
     }

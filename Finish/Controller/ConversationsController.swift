@@ -21,7 +21,7 @@ class ConversationsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configure()
+        configureUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,7 +38,7 @@ class ConversationsController: UIViewController {
     
     //MARK: - Helpers
     
-    func configure() {
+    func configureUI() {
         view.backgroundColor = UIColor(named: "backgroundColor")
         navigationItem.title = "トーク"
     }

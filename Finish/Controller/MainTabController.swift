@@ -95,7 +95,7 @@ class MainTabController: UITabBarController {
         let conversations = ConversationsController()
         let nav1 = templateNavigationController(image: UIImage(systemName: "message"), rootViewController: conversations)
         
-        let feed = FeedController()
+        let feed = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
         let nav2 = templateNavigationController(image: UIImage(systemName: "clock"), rootViewController: feed)
         
         let explore = SearchController()
