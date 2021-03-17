@@ -170,8 +170,10 @@ extension FeedController: PostCellDelegate {
             let likes = post.didLike ? post.likes - 1 : post.likes + 1
             cell.post?.likes = likes
             
-            // only upload notification if tweet is being liked
             guard !post.didLike else { return }
+            NotificationService.shared.uploadNotification(toUser: post.user,
+                                                          type: .like,
+                                                          postID: post.postID)
         }
     }
     

@@ -140,8 +140,10 @@ extension PostController: PostHeaderDelegate {
             let likes = post.didLike ? post.likes - 1 : post.likes + 1
             header.post?.likes = likes
             
-            // only upload notification if tweet is being liked
             guard !post.didLike else { return }
+            NotificationService.shared.uploadNotification(toUser: post.user,
+                                                          type: .like,
+                                                          postID: post.postID)
         }
     }
     
@@ -185,6 +187,9 @@ extension PostController: PostCellDelegate {
 //
 //            // only upload notification if tweet is being liked
 //            guard !post.didLike else { return }
+//        NotificationService.shared.uploadNotification(toUser: post.user,
+//                                                      type: .like,
+//                                                      postID: post.postID)
 //        }
     }
     
