@@ -132,7 +132,16 @@ extension PostController: PostHeaderDelegate {
     }
     
     func handleLikeTapped(_ header: PostHeader) {
+        guard let post = header.post else { return }
         
+        PostService.shared.likePost(post: post) { (err, ref) in
+            header.post?.didLike.toggle()
+            let likes = post.didLike ? post.likes - 1 : post.likes + 1
+            header.post?.likes = likes
+            
+            // only upload notification if tweet is being liked
+            guard !post.didLike else { return }
+        }
     }
     
     func showActionSheet(_ header: PostHeader) {
