@@ -78,6 +78,7 @@ extension PostController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PostCell
+        cell.delegate = self
         cell.post = replies[indexPath.row]
         return cell
     }
@@ -150,6 +151,50 @@ extension PostController: PostHeaderDelegate {
         } else {
             UserService.shared.checkIfUserIsFollowed(uid: post.user.uid) { isFollowed in
                 var user = self.post.user
+                user.isFollowed = isFollowed
+                self.showActionSheet(forUser: user)
+            }
+        }
+    }
+}
+
+//MARK: - PostCellDelegate
+
+extension PostController: PostCellDelegate {
+    func handleProfileImageTapped(_ cell: PostCell) {
+        guard let user = cell.post?.user else { return }
+        let controller = ProfileController(user: user)
+        navigationController?.pushViewController(controller, animated: true)
+    }
+
+    func handleReplyTapped(_ cell: PostCell) {
+        guard let post = cell.post else { return }
+        let controller = UploadPostController(user: post.user, config: .reply(post))
+        let nav = UINavigationController(rootViewController: controller)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true, completion: nil)
+    }
+    
+    func handleLikeTapped(_ cell: PostCell) {
+//        guard let post = cell.post else { return }
+//
+//        PostService.shared.likeReply(post: post) { (err, ref) in
+//            cell.post?.didLike.toggle()
+//            let likes = post.didLike ? post.likes - 1 : post.likes + 1
+//            cell.post?.likes = likes
+//
+//            // only upload notification if tweet is being liked
+//            guard !post.didLike else { return }
+//        }
+    }
+    
+    func showActionSheet(_ cell: PostCell) {
+        guard let post = cell.post else { return }
+        if post.user.isCurrentUser {
+            showActionSheet(forUser: post.user)
+        } else {
+            UserService.shared.checkIfUserIsFollowed(uid: post.user.uid) { isFollowed in
+                var user = post.user
                 user.isFollowed = isFollowed
                 self.showActionSheet(forUser: user)
             }
