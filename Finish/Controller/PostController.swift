@@ -9,13 +9,12 @@ import UIKit
 
 private let reuseIdentifier = "PostCell"
 private let headerIdentifier = "PostHeader"
-
 class PostController: UICollectionViewController {
     
     //MARK: - Properties
     
-    private let post: Post
-    private let actionSheetLauncher: ActionSheetLauncher
+    private var post: Post
+    private var actionSheetLauncher: ActionSheetLauncher!
     private var replies = [Post]() {
         didSet { collectionView.reloadData() }
     }
@@ -24,7 +23,6 @@ class PostController: UICollectionViewController {
     
     init(post: Post) {
         self.post = post
-        self.actionSheetLauncher = ActionSheetLauncher(user: post.user)
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
     
@@ -37,6 +35,7 @@ class PostController: UICollectionViewController {
         
         configureCollectionView()
         fetchReplies()
+        checkIfUserIsFollowed()
     }
 
     //MARK: - API
@@ -44,6 +43,13 @@ class PostController: UICollectionViewController {
     func fetchReplies() {
         PostService.shared.fetchReplies(forPost: post) { replies in
             self.replies = replies
+        }
+    }
+    
+    func checkIfUserIsFollowed() {
+        UserService.shared.checkIfUserIsFollowed(uid: post.user.uid) { isFollowed in
+            self.post.user.isFollowed = isFollowed
+            self.collectionView.reloadData()
         }
     }
 
@@ -68,6 +74,12 @@ extension PostController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PostCell
         cell.post = replies[indexPath.row]
         return cell
+    }
+    
+    fileprivate func showActionSheet(forUser user: User) {
+        actionSheetLauncher = ActionSheetLauncher(user: user)
+        actionSheetLauncher.delegate = self
+        actionSheetLauncher.show()
     }
 }
 
@@ -103,8 +115,43 @@ extension PostController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+//MARK: - PostHeaderDelegate
+
 extension PostController: PostHeaderDelegate {
     func showActionSheet(_ header: PostHeader) {
-        actionSheetLauncher.show()
+        if post.user.isCurrentUser {
+            showActionSheet(forUser: post.user)
+        } else {
+            UserService.shared.checkIfUserIsFollowed(uid: post.user.uid) { isFollowed in
+                var user = self.post.user
+                user.isFollowed = isFollowed
+                self.showActionSheet(forUser: user)
+            }
+        }
+    }
+}
+
+//MARK: - ActionSheetLauncherDelegate
+
+extension PostController: ActionSheetLauncherDelegate {
+    func didSelect(option: ActionSheetOptions) {
+        switch option {
+        case .follow(let user):
+            UserService.shared.followUser(uid: user.uid) { (err, ref) in
+                print("DEBUG: Did follow user \(user.username)")
+            }
+        case .unfollow(let user):
+            UserService.shared.unfollowUser(uid: user.uid) { (err, ref) in
+                print("DEBUG: Did unfollow user \(user.username)")
+            }
+        case .report:
+            print("DEBUG: Report tweet")
+        case .delete:
+            print("DEBUG: Delete tweet..")
+        case .block(_):
+            print("DEBUG: Delete tweet..")
+        case .unblock(_):
+            print("DEBUG: Delete tweet..")
+        }
     }
 }
