@@ -13,6 +13,8 @@ class FeedController: UICollectionViewController {
     
     //MARK: - Properties
     
+    private var actionSheetLauncher: ActionSheetLauncher!
+    
     private var posts = [Post]() {
         didSet { collectionView.reloadData() }
     }
@@ -52,6 +54,20 @@ class FeedController: UICollectionViewController {
         }
     }
     
+    func checkIfUserIsFollowed(posts: [Post]) {
+        guard !posts.isEmpty else { return }
+        
+        posts.forEach { post in
+            let user = post.user
+            
+            UserService.shared.checkIfUserIsFollowed(uid: user.uid) { isFollowed in
+                if let index = self.posts.firstIndex(where: { $0.user.uid == post.user.uid }) {
+                    self.posts[index].user.isFollowed = isFollowed
+                }
+            }
+        }
+    }
+    
     //MARK: - Helpers
     
     func configureUI() {
@@ -68,6 +84,12 @@ class FeedController: UICollectionViewController {
         searchController.searchBar.placeholder = "投稿を検索"
         navigationItem.searchController = searchController
         definesPresentationContext = false
+    }
+    
+    fileprivate func showActionSheet(forUser user: User) {
+        actionSheetLauncher = ActionSheetLauncher(user: user)
+        actionSheetLauncher.delegate = self
+        actionSheetLauncher.show()
     }
 }
 
@@ -125,7 +147,16 @@ extension FeedController: PostCellDelegate {
     }
     
     func showActionSheet(_ cell: PostCell) {
-
+        guard let post = cell.post else { return }
+        if post.user.isCurrentUser {
+            showActionSheet(forUser: post.user)
+        } else {
+            UserService.shared.checkIfUserIsFollowed(uid: post.user.uid) { isFollowed in
+                var user = post.user
+                user.isFollowed = isFollowed
+                self.showActionSheet(forUser: user)
+            }
+        }
     }
 }
 
@@ -140,5 +171,30 @@ extension FeedController: UISearchResultsUpdating {
             return post.user.fullname.contains(searchText) || post.user.username.contains(searchText)
                 || post.user.sick.contains(searchText) || post.caption.contains(searchText)
         })
+    }
+}
+
+//MARK: - ActionSheetLauncherDelegate
+
+extension FeedController: ActionSheetLauncherDelegate {
+    func didSelect(option: ActionSheetOptions) {
+        switch option {
+        case .follow(let user):
+            UserService.shared.followUser(uid: user.uid) { (err, ref) in
+                print("DEBUG: Did follow user \(user.username)")
+            }
+        case .unfollow(let user):
+            UserService.shared.unfollowUser(uid: user.uid) { (err, ref) in
+                print("DEBUG: Did unfollow user \(user.username)")
+            }
+        case .report:
+            print("DEBUG: Report tweet")
+        case .delete:
+            print("DEBUG: Delete tweet..")
+        case .block(_):
+            print("DEBUG: Delete tweet..")
+        case .unblock(_):
+            print("DEBUG: Delete tweet..")
+        }
     }
 }
