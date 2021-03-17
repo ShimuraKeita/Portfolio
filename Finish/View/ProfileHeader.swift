@@ -11,6 +11,10 @@ class ProfileHeader: UICollectionReusableView {
     
     //MARK: - Properties
     
+    var user: User? {
+        didSet { configure() }
+    }
+    
     private let filterBar = ProfileFilterView()
     
     private let profileImageView: UIImageView = {
@@ -147,6 +151,28 @@ class ProfileHeader: UICollectionReusableView {
     //MARK: - Selectors
 
     //MARK: - Helpers
+    
+    func configure() {
+        guard let user = user else { return }
+                
+        let viewModel = ProfileHeaderViewModel(user: user)
+        
+        profileImageView.sd_setImage(with: user.profileImageUrl)
+        
+        editProfileFollowButton.setTitle(viewModel.actionButtonTitle, for: .normal)
+        editProfileFollowButton.setTitleColor(viewModel.actionButtonTextColor, for: .normal)
+        editProfileFollowButton.backgroundColor = viewModel.actionButtonBackgroundColor
+        
+        postsLabel.attributedText = viewModel.postsString(valueColor: UIColor(named: "buttonColor") ?? .black, textColor: .lightGray)
+        followingLabel.attributedText = viewModel.followingString(valueColor: UIColor(named: "buttonColor") ?? .black, textColor: .lightGray)
+        followersLabel.attributedText = viewModel.followersString(valueColor: UIColor(named: "buttonColor") ?? .black, textColor: .lightGray)
+        
+        sickLabel.text = user.sick
+        bioLabel.text = user.bio
+        
+        fullnameLabel.text = user.fullname
+        usernameLabel.text = viewModel.usernameText
+    }
 
 }
 

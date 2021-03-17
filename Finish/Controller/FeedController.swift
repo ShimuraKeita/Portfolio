@@ -84,8 +84,8 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
 
 extension FeedController: PostCellDelegate {
     func handleProfileImageTapped(_ cell: PostCell) {
-        
-        let controller = ProfileController(collectionViewLayout: UICollectionViewFlowLayout())
+        guard let user = cell.post?.user else { return }
+        let controller = ProfileController(user: user)
         navigationController?.pushViewController(controller, animated: true)
     }
 }

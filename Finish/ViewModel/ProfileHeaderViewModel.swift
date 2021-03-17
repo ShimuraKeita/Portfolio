@@ -29,19 +29,28 @@ struct ProfileHeaderViewModel {
     
     var actionButtonTitle: String {
         if user.isCurrentUser {
-            return "プロフィール編集"
+            return "プロフィールを編集"
         }
         
-        if !user.isFollowed {
-            return "フォロー"
-        }
-        
-        if user.isFollowed {
-            return "フォロー中"
-        }
-        
-        return ""
+        return user.isFollowed ? "フォロー中" : "フォローする"
     }
+    
+    var actionButtonBackgroundColor: UIColor {
+        if user.isCurrentUser {
+            return UIColor(named: "backgroundColor")!
+        }
+        
+        return user.isFollowed ? .systemPink : UIColor(named: "backgroundColor")!
+    }
+    
+    var actionButtonTextColor: UIColor {
+        if user.isCurrentUser {
+            return .systemPink
+        }
+        
+        return user.isFollowed ? .white : .systemPink
+    }
+
     
     init(user: User) {
         self.user = user
@@ -57,6 +66,11 @@ struct ProfileHeaderViewModel {
     
     func followingString(valueColor: UIColor, textColor: UIColor) -> NSAttributedString {
         return attributedText(withValue: user.stats?.following ?? 0, text: "フォロー中",
+                              valueColor: valueColor, textColor: textColor)
+    }
+    
+    func postsString(valueColor: UIColor, textColor: UIColor) -> NSAttributedString {
+        return attributedText(withValue: user.stats?.posts ?? 0, text: "投稿",
                               valueColor: valueColor, textColor: textColor)
     }
     
