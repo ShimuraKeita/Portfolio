@@ -99,7 +99,7 @@ class MainTabController: UITabBarController {
         let feed = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
         let nav2 = templateNavigationController(image: UIImage(systemName: "clock"), rootViewController: feed)
         
-        let explore = SearchController()
+        let explore = SearchController(collectionViewLayout: UICollectionViewFlowLayout())
         let nav3 = templateNavigationController(image: UIImage(systemName: "magnifyingglass"), rootViewController: explore)
         
         let notifications = NotificationsController()
