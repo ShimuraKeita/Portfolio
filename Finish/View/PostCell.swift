@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ActiveLabel
 
 protocol PostCellDelegate: class {
     func handleProfileImageTapped(_ cell: PostCell)
@@ -37,10 +38,20 @@ class PostCell: UICollectionViewCell {
         return iv
     }()
     
-    private let captionLabel: UILabel = {
-        let label = UILabel()
+    private let replyLabel: ActiveLabel = {
+        let label = ActiveLabel()
+        label.textColor = .lightGray
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.mentionColor = .systemPink
+        return label
+    }()
+    
+    private let captionLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.numberOfLines = 0
+        label.mentionColor = .systemPink
+        label.hashtagColor = .systemPink
         return label
     }()
     
@@ -75,9 +86,15 @@ class PostCell: UICollectionViewCell {
         imageCaptionStack.spacing = 12
         imageCaptionStack.alignment = .leading
         
-        addSubview(imageCaptionStack)
-        imageCaptionStack.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor,
-                                 paddingTop: 4, paddingLeft: 12, paddingRight: 12)
+        let stack = UIStackView(arrangedSubviews: [replyLabel, imageCaptionStack])
+        stack.axis = .vertical
+        stack.spacing = 8
+        stack.distribution = .fillProportionally
+        
+        addSubview(stack)
+        stack.anchor(top: topAnchor, left: leftAnchor,
+                     right: rightAnchor, paddingTop: 4,
+                     paddingLeft: 12, paddingRight: 12)
         
         infoLabel.font = UIFont.systemFont(ofSize: 14)
         
@@ -90,10 +107,10 @@ class PostCell: UICollectionViewCell {
         actionStack.anchor(bottom: bottomAnchor, paddingBottom: 8)
         
         let underlineView = UIView()
-        underlineView.backgroundColor = .lightGray
+        underlineView.backgroundColor = .systemGroupedBackground
         addSubview(underlineView)
         underlineView.anchor(left: leftAnchor, bottom: bottomAnchor,
-                             right: rightAnchor, height: 0.3)
+                             right: rightAnchor, height: 1)
     }
     
     required init?(coder: NSCoder) {
@@ -127,6 +144,9 @@ class PostCell: UICollectionViewCell {
         
         likeButton.tintColor = viewModel.likeButtonTintColor
         likeButton.setImage(viewModel.likeButtonImage, for: .normal)
+        
+        replyLabel.isHidden = viewModel.shouldHideReplyLabel
+        replyLabel.text = viewModel.replyText
     }
 
     func createButton(withImageName imageName: String) -> UIButton {
