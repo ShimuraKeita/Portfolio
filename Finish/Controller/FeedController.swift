@@ -17,6 +17,17 @@ class FeedController: UICollectionViewController {
         didSet { collectionView.reloadData() }
     }
     
+    private var filteredPosts = [Post]() {
+        didSet { collectionView.reloadData() }
+    }
+    
+    private var inSearchMode: Bool {
+        return searchController.isActive &&
+            !searchController.searchBar.text!.isEmpty
+    }
+    
+    private let searchController = UISearchController(searchResultsController: nil)
+    
     //MARK: - Lifecyle
     
     override func viewDidLoad() {
@@ -24,6 +35,7 @@ class FeedController: UICollectionViewController {
         
         configureUI()
         fetchPosts()
+        configureSearchController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,26 +60,38 @@ class FeedController: UICollectionViewController {
         
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
     }
+    
+    func configureSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.placeholder = "投稿を検索"
+        navigationItem.searchController = searchController
+        definesPresentationContext = false
+    }
 }
 
 //MARK: - UICollectionViewDelegate/DataSource
 
 extension FeedController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return posts.count
+        return inSearchMode ? filteredPosts.count : posts.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PostCell
         
         cell.delegate = self
-        cell.post = posts[indexPath.row]
+        let post = inSearchMode ? filteredPosts[indexPath.row] : posts[indexPath.row]
+        cell.post = post
         
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let controller = PostController(post: posts[indexPath.row])
+        
+        let post = inSearchMode ? filteredPosts[indexPath.row] : posts[indexPath.row]
+        let controller = PostController(post: post)
         navigationController?.pushViewController(controller, animated: true)
     }
 }
@@ -98,5 +122,19 @@ extension FeedController: PostCellDelegate {
         guard let user = cell.post?.user else { return }
         let controller = ProfileController(user: user)
         navigationController?.pushViewController(controller, animated: true)
+    }
+}
+
+//MARK: - UISearchResultsUpdating
+
+extension FeedController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        guard let searchText = searchController.searchBar.text?.lowercased() else { return }
+        
+        filteredPosts = posts.filter({ post -> Bool in
+            return post.user.fullname.contains(searchText) || post.user.username.contains(searchText)
+                || post.user.sick.contains(searchText) || post.caption.contains(searchText)
+        })
     }
 }
