@@ -17,8 +17,21 @@ class ProfileController: UICollectionViewController {
     
     private var user: User
     private var actionSheetLauncher: ActionSheetLauncher!
-    private var posts = [Post]() {
+    
+    private var selectedFilter: ProfileFilterOptions = .posts {
         didSet { collectionView.reloadData() }
+    }
+    
+    private var posts = [Post]()
+    private var likedTweets = [Post]()
+    private var replies = [Post]()
+    
+    private var currentDataSource: [Post] {
+        switch selectedFilter {
+        case .posts: return posts
+        case .replies: return replies
+        case .likes: return likedTweets
+        }
     }
     
     //MARK: - Lifecycle
@@ -105,13 +118,13 @@ class ProfileController: UICollectionViewController {
 
 extension ProfileController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return posts.count
+        return currentDataSource.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PostCell
         cell.delegate = self
-        cell.post = posts[indexPath.row]
+        cell.post = currentDataSource[indexPath.row]
         return cell
     }
 }
@@ -127,7 +140,7 @@ extension ProfileController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let controller = PostController(post: posts[indexPath.row])
+        let controller = PostController(post: currentDataSource[indexPath.row])
         navigationController?.pushViewController(controller, animated: true)
     }
 }
