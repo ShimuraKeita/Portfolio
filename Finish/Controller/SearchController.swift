@@ -13,7 +13,20 @@ class SearchController: UICollectionViewController {
     
     //MARK: - Properties
     
-    private var users = [User]()
+    private var users = [User]() {
+        didSet { collectionView.reloadData() }
+    }
+    
+    private var filteredUsers = [User]() {
+        didSet { collectionView.reloadData() }
+    }
+    
+    private var inSearchMode: Bool {
+        return searchController.isActive &&
+            !searchController.searchBar.text!.isEmpty
+    }
+    
+    private let searchController = UISearchController(searchResultsController: nil)
     
     //MARK: - Lifecyle
     
@@ -22,6 +35,7 @@ class SearchController: UICollectionViewController {
         
         configureUI()
         fetchUsers()
+        configureSearchController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,17 +61,27 @@ class SearchController: UICollectionViewController {
         
         collectionView.register(UserCell.self, forCellWithReuseIdentifier: reuseIdentifier)
     }
+    
+    func configureSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.placeholder = "ユーザー検索"
+        navigationItem.searchController = searchController
+        definesPresentationContext = false
+    }
 }
 
 extension SearchController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return users.count
+        return inSearchMode ? filteredUsers.count : users.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! UserCell
         
-        cell.user = users[indexPath.row]
+        let user = inSearchMode ? filteredUsers[indexPath.row] : users[indexPath.row]
+        cell.user = user
         
         return cell
     }
@@ -68,5 +92,19 @@ extension SearchController {
 extension SearchController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 300)
+    }
+}
+
+//MARK: - UISearchResultsUpdating
+
+extension SearchController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        guard let searchText = searchController.searchBar.text?.lowercased() else { return }
+        
+        filteredUsers = users.filter({ user -> Bool in
+            return user.fullname.contains(searchText) || user.username.contains(searchText)
+                || user.sick.contains(searchText) || user.bio.contains(searchText)
+        })
     }
 }
