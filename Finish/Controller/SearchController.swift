@@ -12,6 +12,8 @@ private let reuseIdentifier = "UserCell"
 class SearchController: UICollectionViewController {
     
     //MARK: - Properties
+    
+    private var actionSheetLauncher: ActionSheetLauncher!
         
     private var users = [User]() {
         didSet { collectionView.reloadData() }
@@ -73,6 +75,12 @@ class SearchController: UICollectionViewController {
         searchController.searchBar.placeholder = "ユーザー検索"
         navigationItem.searchController = searchController
         definesPresentationContext = false
+    }
+    
+    fileprivate func showActionSheet(forUser user: User) {
+        actionSheetLauncher = ActionSheetLauncher(user: user)
+        actionSheetLauncher.delegate = self
+        actionSheetLauncher.show()
     }
 }
 
@@ -140,6 +148,41 @@ extension SearchController: UserCellDelegate {
     }
     
     func showActionSheet(_ cell: UserCell) {
+        guard let user = cell.user else { return }
         
+        if user.isCurrentUser {
+            showActionSheet(forUser: user)
+        } else {
+            UserService.shared.checkIfUserIsFollowed(uid: user.uid) { isFollowed in
+                var user = user
+                user.isFollowed = isFollowed
+                self.showActionSheet(forUser: user)
+            }
+        }
+    }
+}
+
+//MARK: - ActionSheetLauncherDelegate
+
+extension SearchController: ActionSheetLauncherDelegate {
+    func didSelect(option: ActionSheetOptions) {
+        switch option {
+        case .follow(let user):
+            UserService.shared.followUser(uid: user.uid) { (err, ref) in
+                print("DEBUG: Did follow user \(user.username)")
+            }
+        case .unfollow(let user):
+            UserService.shared.unfollowUser(uid: user.uid) { (err, ref) in
+                print("DEBUG: Did unfollow user \(user.username)")
+            }
+        case .report:
+            print("DEBUG: Report tweet")
+        case .delete:
+            print("DEBUG: Delete tweet..")
+        case .block(_):
+            print("DEBUG: Delete tweet..")
+        case .unblock(_):
+            print("DEBUG: Delete tweet..")
+        }
     }
 }
