@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol UserCellDelegate: class {
+    func didTapFollow(_ cell: UserCell)
+}
+
 class UserCell: UICollectionViewCell {
     
     //MARK: - Properties
@@ -14,6 +18,8 @@ class UserCell: UICollectionViewCell {
     var user: User? {
         didSet { configure() }
     }
+    
+    weak var delegate: UserCellDelegate?
     
     private let profileImageView: UIImageView = {
         let iv = UIImageView()
@@ -102,7 +108,7 @@ class UserCell: UICollectionViewCell {
     //MARK: - Selectors
     
     @objc func handleFollowTapped() {
-        
+        delegate?.didTapFollow(self)
     }
     
     //MARK: - Helpers

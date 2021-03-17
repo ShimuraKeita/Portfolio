@@ -53,6 +53,10 @@ class SearchController: UICollectionViewController {
         }
     }
     
+    func checkIfUserIsFollowed() {
+        
+    }
+    
     //MARK: - Helpers
     
     func configureUI() {
@@ -81,6 +85,7 @@ extension SearchController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! UserCell
         
         let user = inSearchMode ? filteredUsers[indexPath.row] : users[indexPath.row]
+        cell.delegate = self
         cell.user = user
         
         return cell
@@ -106,5 +111,21 @@ extension SearchController: UISearchResultsUpdating {
             return user.fullname.contains(searchText) || user.username.contains(searchText)
                 || user.sick.contains(searchText) || user.bio.contains(searchText)
         })
+    }
+}
+
+extension SearchController: UserCellDelegate {
+    func didTapFollow(_ cell: UserCell) {
+        guard let user = cell.user else { return }
+                
+        if user.isFollowed {
+            UserService.shared.unfollowUser(uid: user.uid) { (err, ref) in
+                cell.user?.isFollowed = false
+            }
+        } else {
+            UserService.shared.followUser(uid: user.uid) { (err, ref) in
+                cell.user?.isFollowed = true
+            }
+        }
     }
 }
