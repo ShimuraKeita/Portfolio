@@ -149,6 +149,15 @@ extension FeedController: PostCellDelegate {
     
     func handleLikeTapped(_ cell: PostCell) {
         guard let post = cell.post else { return }
+        
+        PostService.shared.likePost(post: post) { (err, ref) in
+            cell.post?.didLike.toggle()
+            let likes = post.didLike ? post.likes - 1 : post.likes + 1
+            cell.post?.likes = likes
+            
+            // only upload notification if tweet is being liked
+            guard !post.didLike else { return }
+        }
     }
     
     func showActionSheet(_ cell: PostCell) {

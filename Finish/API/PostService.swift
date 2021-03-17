@@ -72,11 +72,29 @@ struct PostService {
             guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
             guard let uid = dictionary["uid"] as? String else { return }
             let postID = snapshot.key
-                        
+            
             UserService.shared.fetchUser(uid: uid) { user in
                 let post = Post(user: user, postID: postID, dictionary: dictionary)
                 posts.append(post)
                 completion(posts)
+            }
+        }
+    }
+    
+    func likePost(post: Post, completion: @escaping(DatabaseCompletion)) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        let likes = post.didLike ? post.likes - 1 : post.likes + 1
+        REF_POSTS.child(post.postID).child("likes").setValue(likes)
+        
+        if !post.didLike {
+            REF_USER_LIKES.child(uid).updateChildValues([post.postID: 1]) { (err, ref) in
+                REF_POST_LIKES.child(post.postID).updateChildValues([uid: 1], withCompletionBlock: completion)
+            }
+        } else {
+            guard post.likes > 0 else { return }
+            REF_USER_LIKES.child(uid).child(post.postID).removeValue { (err, ref) in
+                REF_POST_LIKES.child(post.postID).removeValue(completionBlock: completion)
             }
         }
     }
