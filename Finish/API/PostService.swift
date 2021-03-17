@@ -38,4 +38,22 @@ struct PostService {
             }
         }
     }
+    
+    func fetchPosts(forUser user: User, completion: @escaping([Post]) -> Void) {
+        var posts = [Post]()
+        REF_USER_POSTS.child(user.uid).observe(.childAdded) { (snapshot) in
+            let postID = snapshot.key
+            
+            REF_POSTS.child(postID).observeSingleEvent(of: .value) { (snapshot) in
+                guard let dictionary = snapshot.value as? [String: Any] else { return }
+                guard let uid = dictionary["uid"] as? String else { return }
+                
+                UserService.shared.fetchUser(uid: uid) { (user) in
+                    let post = Post(user: user, postID: postID, dictionary: dictionary)
+                    posts.append(post)
+                    completion(posts)
+                }
+            }
+        }
+    }
 }

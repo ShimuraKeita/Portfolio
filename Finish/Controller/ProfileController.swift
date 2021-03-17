@@ -16,6 +16,10 @@ class ProfileController: UICollectionViewController {
     
     private var user: User
     
+    private var posts = [Post]() {
+        didSet { collectionView.reloadData() }
+    }
+    
     //MARK: - Lifecycle
     
     init(user: User) {
@@ -31,6 +35,7 @@ class ProfileController: UICollectionViewController {
         super.viewDidLoad()
         
         configureCollectionView()
+        fetchPosts()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,6 +47,12 @@ class ProfileController: UICollectionViewController {
     //MARK: - Selectors
     
     //MARK: - API
+    
+    func fetchPosts() {
+        PostService.shared.fetchPosts(forUser: user) { (posts) in
+            self.posts = posts
+        }
+    }
 
     //MARK: - Helpers
 
@@ -58,12 +69,12 @@ class ProfileController: UICollectionViewController {
 
 extension ProfileController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return posts.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PostCell
-        
+        cell.post = posts[indexPath.row]
         return cell
     }
 }
