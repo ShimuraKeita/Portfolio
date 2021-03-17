@@ -53,7 +53,20 @@ class ProfileController: UICollectionViewController {
     
     func fetchPosts() {
         PostService.shared.fetchPosts(forUser: user) { (posts) in
-            self.posts = posts
+            self.posts = posts.sorted(by: { $0.timestamp > $1.timestamp })
+            self.checkIfUserLikedPosts()
+        }
+    }
+    
+    func checkIfUserLikedPosts() {
+        self.posts.forEach { post in
+            PostService.shared.checkIfUserLikedPost(post) { didLike in
+                guard didLike == true else { return }
+                
+                if let index = self.posts.firstIndex(where: { $0.postID == post.postID }) {
+                    self.posts[index].didLike = true
+                }
+            }
         }
     }
     
