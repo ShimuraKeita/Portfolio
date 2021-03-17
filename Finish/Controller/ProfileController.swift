@@ -16,7 +16,7 @@ class ProfileController: UICollectionViewController {
     //MARK: - Properties
     
     private var user: User
-    
+    private let actionSheetLauncher: ActionSheetLauncher
     private var posts = [Post]() {
         didSet { collectionView.reloadData() }
     }
@@ -25,6 +25,7 @@ class ProfileController: UICollectionViewController {
     
     init(user: User) {
         self.user = user
+        self.actionSheetLauncher = ActionSheetLauncher(user: user)
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
     
@@ -141,5 +142,9 @@ extension ProfileController: ProfileHeaderDelegate {
                 
             }
         }
+    }
+    
+    func showActionSheet(_ header: ProfileHeader) {
+        actionSheetLauncher.show()
     }
 }

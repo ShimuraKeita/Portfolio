@@ -12,7 +12,7 @@ private let reuseIdentifier = "UserCell"
 class SearchController: UICollectionViewController {
     
     //MARK: - Properties
-    
+        
     private var users = [User]() {
         didSet { collectionView.reloadData() }
     }
@@ -137,5 +137,9 @@ extension SearchController: UserCellDelegate {
                 cell.user?.isFollowed = true
             }
         }
+    }
+    
+    func showActionSheet(_ cell: UserCell) {
+        
     }
 }

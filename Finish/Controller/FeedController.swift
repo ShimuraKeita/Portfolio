@@ -123,6 +123,10 @@ extension FeedController: PostCellDelegate {
         let controller = ProfileController(user: user)
         navigationController?.pushViewController(controller, animated: true)
     }
+    
+    func showActionSheet(_ cell: PostCell) {
+
+    }
 }
 
 //MARK: - UISearchResultsUpdating

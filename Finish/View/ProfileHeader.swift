@@ -9,6 +9,7 @@ import UIKit
 
 protocol ProfileHeaderDelegate: class {
     func handleEditProfileFollow(_ header: ProfileHeader)
+    func showActionSheet(_ header: ProfileHeader)
 }
 
 class ProfileHeader: UICollectionReusableView {
@@ -103,7 +104,7 @@ class ProfileHeader: UICollectionReusableView {
         let button = UIButton(type: .system)
         button.tintColor = .lightGray
         button.setImage(UIImage(named: "down_arrow_24pt"), for: .normal)
-//        button.addTarget(self, action: #selector(showActionSheet), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showActionSheet), for: .touchUpInside)
         return button
     }()
     
@@ -177,6 +178,10 @@ class ProfileHeader: UICollectionReusableView {
         delegate?.handleEditProfileFollow(self)
     }
 
+    @objc func showActionSheet() {
+        delegate?.showActionSheet(self)
+    }
+    
     //MARK: - Helpers
     
     func configure() {

@@ -11,6 +11,7 @@ import ActiveLabel
 protocol PostCellDelegate: class {
     func handleProfileImageTapped(_ cell: PostCell)
     func handleReplyTapped(_ cell: PostCell)
+    func showActionSheet(_ cell: PostCell)
 }
 
 class PostCell: UICollectionViewCell {
@@ -73,7 +74,7 @@ class PostCell: UICollectionViewCell {
         let button = UIButton(type: .system)
         button.tintColor = .lightGray
         button.setImage(UIImage(named: "down_arrow_24pt"), for: .normal)
-//        button.addTarget(self, action: #selector(showActionSheet), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showActionSheet), for: .touchUpInside)
         return button
     }()
     
@@ -135,6 +136,10 @@ class PostCell: UICollectionViewCell {
     
     @objc func handleLikeTapped() {
         
+    }
+    
+    @objc func showActionSheet() {
+        delegate?.showActionSheet(self)
     }
 
     //MARK: - Helpers

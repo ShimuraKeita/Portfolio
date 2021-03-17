@@ -104,7 +104,7 @@ extension PostController: UICollectionViewDelegateFlowLayout {
 }
 
 extension PostController: PostHeaderDelegate {
-    func showActionSheet() {
+    func showActionSheet(_ header: PostHeader) {
         actionSheetLauncher.show()
     }
 }

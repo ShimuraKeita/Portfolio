@@ -9,6 +9,7 @@ import UIKit
 
 protocol UserCellDelegate: class {
     func didTapFollow(_ cell: UserCell)
+    func showActionSheet(_ cell: UserCell)
 }
 
 class UserCell: UICollectionViewCell {
@@ -70,7 +71,7 @@ class UserCell: UICollectionViewCell {
         let button = UIButton(type: .system)
         button.tintColor = .lightGray
         button.setImage(UIImage(named: "down_arrow_24pt"), for: .normal)
-//        button.addTarget(self, action: #selector(showActionSheet), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showActionSheet), for: .touchUpInside)
         return button
     }()
     
@@ -121,6 +122,10 @@ class UserCell: UICollectionViewCell {
     
     @objc func handleFollowTapped() {
         delegate?.didTapFollow(self)
+    }
+    
+    @objc func showActionSheet() {
+        delegate?.showActionSheet(self)
     }
     
     //MARK: - Helpers

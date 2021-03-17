@@ -9,7 +9,7 @@ import UIKit
 import ActiveLabel
 
 protocol PostHeaderDelegate: class {
-    func showActionSheet()
+    func showActionSheet(_ header: PostHeader)
 }
 
 class PostHeader: UICollectionReusableView {
@@ -179,7 +179,7 @@ class PostHeader: UICollectionReusableView {
     }
     
     @objc func showActionSheet() {
-        delegate?.showActionSheet()
+        delegate?.showActionSheet(self)
     }
     
     @objc func handleCommentTapped() {
