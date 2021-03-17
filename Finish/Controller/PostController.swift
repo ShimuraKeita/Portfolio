@@ -16,6 +16,10 @@ class PostController: UICollectionViewController {
     
     private let post: Post
     
+    private var replies = [Post]() {
+        didSet { collectionView.reloadData() }
+    }
+    
     //MARK: - Lifecycle
     
     init(post: Post) {
@@ -31,9 +35,18 @@ class PostController: UICollectionViewController {
         super.viewDidLoad()
         
         configureCollectionView()
+        fetchReplies()
     }
 
-    //MARK: - Selectors
+    //MARK: - API
+    
+    func fetchReplies() {
+        PostService.shared.fetchReplies(forPost: post) { replies in
+            self.replies = replies
+        }
+    }
+
+    //MARK: - Helpers
     
     func configureCollectionView() {
         collectionView.backgroundColor = UIColor(named: "backgroundColor")
@@ -41,19 +54,18 @@ class PostController: UICollectionViewController {
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.register(PostHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
     }
-
-    //MARK: - Helpers
 }
 
 //MARK: - UICollectionViewDataSource
 
 extension PostController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return replies.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PostCell
+        cell.post = replies[indexPath.row]
         return cell
     }
 }

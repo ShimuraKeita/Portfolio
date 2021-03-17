@@ -64,4 +64,20 @@ struct PostService {
             }
         }
     }
+    
+    func fetchReplies(forPost post: Post, completion: @escaping([Post]) -> Void) {
+        var posts = [Post]()
+        
+        REF_POST_REPLIES.child(post.postID).observe(.childAdded) { snapshot in
+            guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
+            guard let uid = dictionary["uid"] as? String else { return }
+            let postID = snapshot.key
+                        
+            UserService.shared.fetchUser(uid: uid) { user in
+                let post = Post(user: user, postID: postID, dictionary: dictionary)
+                posts.append(post)
+                completion(posts)
+            }
+        }
+    }
 }
