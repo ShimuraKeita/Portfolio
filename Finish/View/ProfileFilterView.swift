@@ -36,6 +36,9 @@ class ProfileFilterView: UIView {
         backgroundColor = UIColor(named: "backgroundColor")
         collectionView.register(ProfileFilterCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
+        let selectedIndexPath = IndexPath(row: 0, section: 0)
+        collectionView.selectItem(at: selectedIndexPath, animated: true, scrollPosition: .left)
+        
         addSubview(collectionView)
         collectionView.addConstraintsToFillView(self)
     }
@@ -49,11 +52,14 @@ class ProfileFilterView: UIView {
 
 extension ProfileFilterView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return ProfileFilterOptions.allCases.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ProfileFilterCell
+        
+        let option = ProfileFilterOptions(rawValue: indexPath.row)
+        cell.option = option
         
         return cell
     }
@@ -71,7 +77,8 @@ extension ProfileFilterView: UICollectionViewDelegate {
 
 extension ProfileFilterView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: frame.width / 3, height: frame.height)
+        let count = CGFloat(ProfileFilterOptions.allCases.count)
+        return CGSize(width: frame.width / count, height: frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
