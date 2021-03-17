@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ProfileHeaderDelegate: class {
+    func didSelect(filter: ProfileFilterOptions)
+}
+
 class ProfileHeader: UICollectionReusableView {
     
     //MARK: - Properties
