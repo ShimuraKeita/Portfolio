@@ -72,6 +72,14 @@ class PostHeader: UICollectionReusableView {
         return button
     }()
     
+    private let replyLabel: ActiveLabel = {
+        let label = ActiveLabel()
+        label.textColor = .lightGray
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.mentionColor = .systemPink
+        return label
+    }()
+    
     private lazy var likesLabel = UILabel()
     
     private lazy var statsView: UIView = {
@@ -122,7 +130,7 @@ class PostHeader: UICollectionReusableView {
         let imageCaptionStack = UIStackView(arrangedSubviews: [profileImageView, labelStack])
         imageCaptionStack.spacing = 12
         
-        let stack = UIStackView(arrangedSubviews: [imageCaptionStack])
+        let stack = UIStackView(arrangedSubviews: [replyLabel, imageCaptionStack])
         stack.axis = .vertical
         stack.spacing = 8
         stack.distribution = .fillProportionally
@@ -193,6 +201,8 @@ class PostHeader: UICollectionReusableView {
         likeButton.setImage(viewModel.likeButtonImage, for: .normal)
         likeButton.tintColor = viewModel.likeButtonTintColor
         
+        replyLabel.isHidden = viewModel.shouldHideReplyLabel
+        replyLabel.text = viewModel.replyText
     }
     
     func createButton(withImageName imageName: String) -> UIButton {
