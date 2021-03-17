@@ -51,6 +51,9 @@ struct ProfileHeaderViewModel {
         return user.isFollowed ? .white : .systemPink
     }
 
+    var shouldHideButton: Bool {
+        return user.isCurrentUser
+    }
     
     init(user: User) {
         self.user = user

@@ -99,6 +99,14 @@ class ProfileHeader: UICollectionReusableView {
         return label
     }()
     
+    private lazy var optionsButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = .lightGray
+        button.setImage(UIImage(named: "down_arrow_24pt"), for: .normal)
+//        button.addTarget(self, action: #selector(showActionSheet), for: .touchUpInside)
+        return button
+    }()
+    
     private let underlineView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemPink
@@ -136,6 +144,10 @@ class ProfileHeader: UICollectionReusableView {
                                                             editProfileFollowButton])
         bioButtonStack.axis = .vertical
         bioButtonStack.spacing = 4
+        
+        addSubview(optionsButton)
+        optionsButton.centerY(inView: profileImageView)
+        optionsButton.anchor(right: rightAnchor, paddingRight: 8)
         
         addSubview(bioButtonStack)
         bioButtonStack.anchor(top: dataLabel.bottomAnchor, left: leftAnchor,
@@ -187,6 +199,8 @@ class ProfileHeader: UICollectionReusableView {
         
         fullnameLabel.text = user.fullname
         usernameLabel.text = viewModel.usernameText
+        
+        optionsButton.isHidden = viewModel.shouldHideButton
     }
 
 }

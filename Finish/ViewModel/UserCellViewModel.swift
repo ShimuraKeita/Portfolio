@@ -25,7 +25,7 @@ struct UserCellViewModel {
         return user.isFollowed ? .white : .systemPink
     }
     
-    var shouldHidefollowButton: Bool {
+    var shouldHideButton: Bool {
         return user.isCurrentUser
     }
     

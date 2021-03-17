@@ -66,6 +66,14 @@ class UserCell: UICollectionViewCell {
         return button
     }()
     
+    private lazy var optionsButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = .lightGray
+        button.setImage(UIImage(named: "down_arrow_24pt"), for: .normal)
+//        button.addTarget(self, action: #selector(showActionSheet), for: .touchUpInside)
+        return button
+    }()
+    
     //MARK: - Lifecycle
     
     override init(frame: CGRect) {
@@ -93,6 +101,10 @@ class UserCell: UICollectionViewCell {
         followButton.anchor(top: stack.bottomAnchor, left: leftAnchor,
                                        right: rightAnchor, paddingTop: 16,
                                        paddingLeft: 24, paddingRight: 24)
+        
+        addSubview(optionsButton)
+        optionsButton.centerY(inView: profileImageView)
+        optionsButton.anchor(right: rightAnchor, paddingRight: 8)
         
         let underlineView = UIView()
         underlineView.backgroundColor = .lightGray
@@ -127,6 +139,8 @@ class UserCell: UICollectionViewCell {
         followButton.setTitle(viewModel.followButtonText, for: .normal)
         followButton.setTitleColor(viewModel.followButtonTextColor, for: .normal)
         followButton.backgroundColor = viewModel.followButtonBackgroundColor
-        followButton.isHidden = viewModel.shouldHidefollowButton
+        followButton.isHidden = viewModel.shouldHideButton
+        
+        optionsButton.isHidden = viewModel.shouldHideButton
     }
 }

@@ -69,6 +69,14 @@ class PostCell: UICollectionViewCell {
     
     private let infoLabel = UILabel()
     
+    private lazy var optionsButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = .lightGray
+        button.setImage(UIImage(named: "down_arrow_24pt"), for: .normal)
+//        button.addTarget(self, action: #selector(showActionSheet), for: .touchUpInside)
+        return button
+    }()
+    
     //MARK: - Lifecycle
     
     override init(frame: CGRect) {
@@ -101,6 +109,10 @@ class PostCell: UICollectionViewCell {
         let actionStack = UIStackView(arrangedSubviews: [commentButton, likeButton])
         actionStack.axis = .horizontal
         actionStack.spacing = 72
+        
+        addSubview(optionsButton)
+        optionsButton.centerY(inView: profileImageView)
+        optionsButton.anchor(right: rightAnchor, paddingRight: 8)
         
         addSubview(actionStack)
         actionStack.centerX(inView: self)
