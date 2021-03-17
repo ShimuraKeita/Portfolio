@@ -70,7 +70,8 @@ class UserCell: UICollectionViewCell {
         addSubview(profileImageView)
         profileImageView.setDimensions(width: 48, height: 48)
         profileImageView.layer.cornerRadius = 48 / 2
-        profileImageView.centerY(inView: self, leftAnchor: leftAnchor, paddingLeft: 12)
+        profileImageView.anchor(top: topAnchor, left: leftAnchor,
+                                paddingTop: 4, paddingLeft: 12)
         
         let stack = UIStackView(arrangedSubviews: [usernameLabel, fullnameLabel, sickLabel, bioLabel])
         stack.axis = .vertical
