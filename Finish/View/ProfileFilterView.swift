@@ -9,9 +9,15 @@ import UIKit
 
 private let reuseIdentifier = "ProfileFilterCell"
 
+protocol ProfileFilterViewDelegate: class {
+    func filterView(_ view: ProfileFilterView, didSelect indexPath: IndexPath)
+}
+
 class ProfileFilterView: UIView {
     
     //MARK: - Properties
+    
+    weak var delegate: ProfileFilterViewDelegate?
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -20,12 +26,6 @@ class ProfileFilterView: UIView {
         cv.delegate = self
         cv.dataSource = self
         return cv
-    }()
-    
-    private let underlineView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemPink
-        return view
     }()
     
     //MARK: - Lifecycle
@@ -38,12 +38,6 @@ class ProfileFilterView: UIView {
         
         addSubview(collectionView)
         collectionView.addConstraintsToFillView(self)
-    }
-    
-    override func layoutSubviews() {
-        addSubview(underlineView)
-        underlineView.anchor(left: leftAnchor, bottom: bottomAnchor,
-                             width: frame.width / 3, height: 2)
     }
     
     required init?(coder: NSCoder) {
@@ -68,7 +62,9 @@ extension ProfileFilterView: UICollectionViewDataSource {
 //MARK: - UICollectionViewDelegate
 
 extension ProfileFilterView: UICollectionViewDelegate {
-
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.filterView(self, didSelect: indexPath)
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
