@@ -67,8 +67,8 @@ extension FeedController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        
+        let controller = PostController(post: posts[indexPath.row])
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
 

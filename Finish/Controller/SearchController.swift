@@ -76,7 +76,7 @@ class SearchController: UICollectionViewController {
     }
 }
 
-//MARK: - UITableViewDelegate/DataSource
+//MARK: - UICollectionViewDelegate/DataSource
 
 extension SearchController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
