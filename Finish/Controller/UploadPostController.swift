@@ -86,6 +86,7 @@ class UploadPostController: UIViewController {
         let imageCaptionStack = UIStackView(arrangedSubviews: [profileImageView, captionTextView])
         imageCaptionStack.axis = .horizontal
         imageCaptionStack.spacing = 12
+        imageCaptionStack.alignment = .leading
 
         view.addSubview(imageCaptionStack)
         imageCaptionStack.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor,
