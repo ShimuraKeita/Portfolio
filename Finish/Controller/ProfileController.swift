@@ -36,6 +36,7 @@ class ProfileController: UICollectionViewController {
         
         configureCollectionView()
         fetchPosts()
+        checkIfUserIsFollowed()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,6 +52,13 @@ class ProfileController: UICollectionViewController {
     func fetchPosts() {
         PostService.shared.fetchPosts(forUser: user) { (posts) in
             self.posts = posts
+        }
+    }
+    
+    func checkIfUserIsFollowed() {
+        UserService.shared.checkIfUserIsFollowed(uid: user.uid) { isFollowed in
+            self.user.isFollowed = isFollowed
+            self.collectionView.reloadData()
         }
     }
 
