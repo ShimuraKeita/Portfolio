@@ -15,6 +15,7 @@ struct User {
     var profileImageUrl: URL?
     let uid: String
     var isFollowed = false
+    var isBlocked = false
     var stats: UserRelationStats?
     var sick: String
     var bio: String

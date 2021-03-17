@@ -11,6 +11,10 @@ class ActionSheetCell: UITableViewCell {
     
     // MARK: - Properties
     
+    var option: ActionSheetOptions? {
+        didSet { configure() }
+    }
+    
     private let optionImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
@@ -50,6 +54,6 @@ class ActionSheetCell: UITableViewCell {
     // MARK: - Helpers
     
     func configure() {
-
+        titleLabel.text = option?.description
     }
 }
