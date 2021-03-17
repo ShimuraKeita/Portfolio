@@ -24,12 +24,13 @@ struct UploadPostViewModel {
         case .post:
             actionButtonTitle = "投稿"
             placeholderText = "いまどうしてる?"
+            
             shouldShowReplyLabel = false
-        case .reply(let tweet):
+        case .reply(let post):
             actionButtonTitle = "返信"
             placeholderText = "返信を投稿"
             shouldShowReplyLabel = true
-            replyText = "返信先: @\(tweet.user.username) さん"
+            replyText = "返信先: @\(post.user.username) さん"
         }
     }
 }

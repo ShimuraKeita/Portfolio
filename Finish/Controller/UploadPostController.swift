@@ -68,14 +68,6 @@ class UploadPostController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
-        
-        switch config {
-        
-        case .post:
-            print(11111)
-        case .reply(let post):
-            print(post.caption)
-        }
     }
 
     //MARK: - Selectors
@@ -85,11 +77,16 @@ class UploadPostController: UIViewController {
     }
     
     @objc func handleUploadPost() {
-        guard let captin = captionTextView.text else { return }
-        PostService.shared.uploadPost(caption: captin) { (error, ref) in
+        guard let caption = captionTextView.text else { return }
+    
+        PostService.shared.uploadPost(caption: caption, type: config) { (error, ref) in
             if let error = error {
-                print("DEBUG: Failed to upload post with error \(error.localizedDescription)")
+                print("DEBUG: Failed to upload tweet with error \(error.localizedDescription)")
                 return
+            }
+
+            if case .reply(let post) = self.config {
+                
             }
 
             self.dismiss(animated: true, completion: nil)

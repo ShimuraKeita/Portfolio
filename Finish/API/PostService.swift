@@ -10,16 +10,24 @@ import Firebase
 struct PostService {
     static let shared = PostService()
     
-    func uploadPost(caption: String, completion: @escaping(DatabaseCompletion)) {
+    func uploadPost(caption: String, type: UploadPostConfiguration, completion: @escaping(DatabaseCompletion)) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let values = [KEY_CAPTION: caption,
                       KEY_TIMESTAMP: Int(NSDate().timeIntervalSince1970),
                       KEY_LIKES: 0,
                       KEY_UID: uid] as [String : Any]
                 
-        REF_POSTS.childByAutoId().updateChildValues(values) { (err, ref) in
-            guard let postID = ref.key else { return }
-            REF_USER_POSTS.child(uid).updateChildValues([postID: 1], withCompletionBlock: completion)
+        switch type {
+        case .reply(let post):
+            REF_POST_REPLIES.child(post.postID).childByAutoId().updateChildValues(values) { (err, ref) in
+                guard let replyKey = ref.key else { return }
+                REF_USER_REPLIES.child(uid).updateChildValues([post.postID: replyKey], withCompletionBlock: completion)
+            }
+        case .post:
+            REF_POSTS.childByAutoId().updateChildValues(values) { (err, ref) in
+                guard let key = ref.key else { return }
+                REF_USER_POSTS.child(uid).updateChildValues([key: 1], withCompletionBlock: completion)
+            }
         }
     }
     
