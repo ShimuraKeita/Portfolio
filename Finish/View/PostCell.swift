@@ -9,6 +9,7 @@ import UIKit
 
 protocol PostCellDelegate: class {
     func handleProfileImageTapped(_ cell: PostCell)
+    func handleReplyTapped(_ cell: PostCell)
 }
 
 class PostCell: UICollectionViewCell {
@@ -106,7 +107,7 @@ class PostCell: UICollectionViewCell {
     }
     
     @objc func handleCommentTapped() {
-        
+        delegate?.handleReplyTapped(self)
     }
     
     @objc func handleLikeTapped() {

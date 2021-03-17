@@ -86,6 +86,14 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
 //MARK: - PostCellDelegate
 
 extension FeedController: PostCellDelegate {
+    func handleReplyTapped(_ cell: PostCell) {
+        guard let post = cell.post else { return }
+        let controller = UploadPostController(user: post.user, config: .reply(post))
+        let nav = UINavigationController(rootViewController: controller)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true, completion: nil)
+    }
+    
     func handleProfileImageTapped(_ cell: PostCell) {
         guard let user = cell.post?.user else { return }
         let controller = ProfileController(user: user)

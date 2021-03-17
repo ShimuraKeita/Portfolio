@@ -12,6 +12,8 @@ class UploadPostController: UIViewController {
     //MARK: - Properties
     
     private let user: User
+    private let config: UploadPostConfiguration
+    private lazy var viewModel = UploadPostViewModel(config: config)
     
     private lazy var actionButton: UIButton = {
         let button = UIButton(type: .system)
@@ -42,8 +44,9 @@ class UploadPostController: UIViewController {
     
     //MARK: - Lifecycle
     
-    init(user: User) {
+    init(user: User, config: UploadPostConfiguration) {
         self.user = user
+        self.config = config
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -56,6 +59,14 @@ class UploadPostController: UIViewController {
         
         configureUI()
         configureNavigationBar()
+        
+        switch config {
+        
+        case .post:
+            print(11111)
+        case .reply(let post):
+            print(post.caption)
+        }
     }
 
     //MARK: - Selectors

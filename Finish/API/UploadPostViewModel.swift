@@ -7,19 +7,19 @@
 
 import UIKit
 
-enum UploadTweetConfiguration {
+enum UploadPostConfiguration {
     case post
     case reply(Post)
 }
 
-struct UploadTweetViewModel {
+struct UploadPostViewModel {
     
     let actionButtonTitle: String
     let placeholderText: String
     var shouldShowReplyLabel: Bool
     var replyText: String?
     
-    init(config: UploadTweetConfiguration) {
+    init(config: UploadPostConfiguration) {
         switch config {
         case .post:
             actionButtonTitle = "投稿"
