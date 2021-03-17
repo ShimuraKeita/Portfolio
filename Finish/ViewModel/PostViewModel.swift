@@ -33,7 +33,7 @@ struct PostViewModel {
     
     var headerTimestamp: String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a · MM/dd/yyyy"
+        formatter.dateFormat = "h:mm a · yyyy/MM/dd"
         return formatter.string(from: post.timestamp)
     }
     

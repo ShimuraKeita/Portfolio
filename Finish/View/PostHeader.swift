@@ -12,6 +12,9 @@ class PostHeader: UICollectionReusableView {
     
     //MARK: - Properties
         
+    var post: Post? {
+        didSet { configure() }
+    }
     
     private lazy var profileImageView: UIImageView = {
         let iv = UIImageView()
@@ -174,6 +177,23 @@ class PostHeader: UICollectionReusableView {
     }
     
     //MARK: - Helpers
+    
+    func configure() {
+        guard let post = post else { return }
+        
+        let viewModel = PostViewModel(post: post)
+        
+        captionLabel.text = post.caption
+        fullnameLabel.text = post.user.fullname
+        usernameLabel.text = viewModel.usernameText
+        profileImageView.sd_setImage(with: viewModel.profileImageUrl)
+        dateLabel.text = viewModel.headerTimestamp
+        
+        likesLabel.attributedText = viewModel.likesAttributedString
+        likeButton.setImage(viewModel.likeButtonImage, for: .normal)
+        likeButton.tintColor = viewModel.likeButtonTintColor
+        
+    }
     
     func createButton(withImageName imageName: String) -> UIButton {
         let button = UIButton(type: .system)
