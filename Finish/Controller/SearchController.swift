@@ -76,6 +76,8 @@ class SearchController: UICollectionViewController {
     }
 }
 
+//MARK: - UITableViewDelegate/DataSource
+
 extension SearchController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return inSearchMode ? filteredUsers.count : users.count
@@ -89,6 +91,12 @@ extension SearchController {
         cell.user = user
         
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let user = inSearchMode ? filteredUsers[indexPath.row] : users[indexPath.row]
+        let controller = ProfileController(user: user)
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
 
@@ -113,6 +121,8 @@ extension SearchController: UISearchResultsUpdating {
         })
     }
 }
+
+//MARK: - UserCellDelegate
 
 extension SearchController: UserCellDelegate {
     func didTapFollow(_ cell: UserCell) {
