@@ -22,7 +22,7 @@ class ProfileFilterView: UIView {
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = .white
+        cv.backgroundColor = UIColor(named: "backgroundColor")
         cv.delegate = self
         cv.dataSource = self
         return cv
@@ -38,6 +38,8 @@ class ProfileFilterView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        backgroundColor = UIColor(named: "backgroundColor")
         
         collectionView.register(ProfileFilterCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
