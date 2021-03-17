@@ -43,6 +43,7 @@
 		23876E572602421E004046A6 /* ActionSheetLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23876E562602421E004046A6 /* ActionSheetLauncher.swift */; };
 		23876E5A26024BD6004046A6 /* ActionSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23876E5926024BD6004046A6 /* ActionSheetCell.swift */; };
 		23876E5D26024E21004046A6 /* ActionSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23876E5C26024E21004046A6 /* ActionSheetViewModel.swift */; };
+		23876E6026029E79004046A6 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23876E5F26029E79004046A6 /* Notification.swift */; };
 		23A627C925FF86E80040C0BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A627C825FF86E80040C0BB /* AppDelegate.swift */; };
 		23A627CB25FF86E80040C0BB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A627CA25FF86E80040C0BB /* SceneDelegate.swift */; };
 		23A627CD25FF86E80040C0BB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A627CC25FF86E80040C0BB /* ViewController.swift */; };
@@ -90,6 +91,7 @@
 		23876E562602421E004046A6 /* ActionSheetLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetLauncher.swift; sourceTree = "<group>"; };
 		23876E5926024BD6004046A6 /* ActionSheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetCell.swift; sourceTree = "<group>"; };
 		23876E5C26024E21004046A6 /* ActionSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetViewModel.swift; sourceTree = "<group>"; };
+		23876E5F26029E79004046A6 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		23A627C525FF86E80040C0BB /* Finish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Finish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23A627C825FF86E80040C0BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23A627CA25FF86E80040C0BB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 			children = (
 				23876E222600C884004046A6 /* User.swift */,
 				23876E2E2600F1C5004046A6 /* Post.swift */,
+				23876E5F26029E79004046A6 /* Notification.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				23A627C925FF86E80040C0BB /* AppDelegate.swift in Sources */,
 				23876DD626004376004046A6 /* FeedController.swift in Sources */,
 				23876DED26004FD7004046A6 /* RegistrationController.swift in Sources */,
+				23876E6026029E79004046A6 /* Notification.swift in Sources */,
 				23876E2F2600F1C5004046A6 /* Post.swift in Sources */,
 				23876DDC26004461004046A6 /* NotificationsController.swift in Sources */,
 				23876E3E260112C6004046A6 /* ProfileFilterView.swift in Sources */,
