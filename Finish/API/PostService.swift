@@ -53,14 +53,22 @@ struct PostService {
             let postID = snapshot.key
             
             REF_POSTS.child(postID).observeSingleEvent(of: .value) { (snapshot) in
-                guard let dictionary = snapshot.value as? [String: Any] else { return }
-                guard let uid = dictionary["uid"] as? String else { return }
-                
-                UserService.shared.fetchUser(uid: uid) { (user) in
-                    let post = Post(user: user, postID: postID, dictionary: dictionary)
+                self.fetchPost(withPostID: snapshot.key) { post in
                     posts.append(post)
                     completion(posts)
                 }
+            }
+        }
+    }
+    
+    func fetchPost(withPostID postID: String, completion: @escaping(Post) -> Void) {
+        REF_POSTS.child(postID).observeSingleEvent(of: .value) { (snapshot) in
+            guard let dictionary = snapshot.value as? [String: Any] else { return }
+            guard let uid = dictionary["uid"] as? String else { return }
+            
+            UserService.shared.fetchUser(uid: uid) { (user) in
+                let post = Post(user: user, postID: postID, dictionary: dictionary)
+                completion(post)
             }
         }
     }

@@ -61,7 +61,9 @@ extension NotificationsController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! NotificationCell
+        cell.contentView.isUserInteractionEnabled = false
         cell.notification = notifications[indexPath.row]
+        cell.delegate = self
         return cell
     }
 }
@@ -71,8 +73,39 @@ extension NotificationsController {
 extension NotificationsController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let notification = notifications[indexPath.row]
-        guard let tweetID = notification.postID else { return }
+        guard let postID = notification.postID else { return }
         
+        PostService.shared.fetchPost(withPostID: postID) { post in
+            let controller = PostController(post: post)
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
         
+    }
+}
+
+//MARK: - NotificationCellDelegate
+
+extension NotificationsController: NotificationCellDelegate {
+    func didTapFollow(_ cell: NotificationCell) {
+        guard let user = cell.notification?.user else { return }
+                
+        if user.isFollowed {
+            UserService.shared.unfollowUser(uid: user.uid) { (err, ref) in
+                cell.notification?.user.isFollowed = false
+                //通知送る
+            }
+        } else {
+            UserService.shared.followUser(uid: user.uid) { (err, ref) in
+                cell.notification?.user.isFollowed = true
+                //通知delete
+            }
+        }
+    }
+    
+    func didTapProfileImage(_ cell: NotificationCell) {
+        guard let user = cell.notification?.user else { return }
+        
+        let controller = ProfileController(user: user)
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
