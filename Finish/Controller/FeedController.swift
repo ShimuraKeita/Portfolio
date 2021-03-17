@@ -133,6 +133,12 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
 //MARK: - PostCellDelegate
 
 extension FeedController: PostCellDelegate {
+    func handleProfileImageTapped(_ cell: PostCell) {
+        guard let user = cell.post?.user else { return }
+        let controller = ProfileController(user: user)
+        navigationController?.pushViewController(controller, animated: true)
+    }
+
     func handleReplyTapped(_ cell: PostCell) {
         guard let post = cell.post else { return }
         let controller = UploadPostController(user: post.user, config: .reply(post))
@@ -141,10 +147,8 @@ extension FeedController: PostCellDelegate {
         present(nav, animated: true, completion: nil)
     }
     
-    func handleProfileImageTapped(_ cell: PostCell) {
-        guard let user = cell.post?.user else { return }
-        let controller = ProfileController(user: user)
-        navigationController?.pushViewController(controller, animated: true)
+    func handleLikeTapped(_ cell: PostCell) {
+        guard let post = cell.post else { return }
     }
     
     func showActionSheet(_ cell: PostCell) {

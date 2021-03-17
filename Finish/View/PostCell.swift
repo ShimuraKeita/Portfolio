@@ -11,6 +11,7 @@ import ActiveLabel
 protocol PostCellDelegate: class {
     func handleProfileImageTapped(_ cell: PostCell)
     func handleReplyTapped(_ cell: PostCell)
+    func handleLikeTapped(_ cell: PostCell)
     func showActionSheet(_ cell: PostCell)
 }
 
@@ -141,7 +142,7 @@ class PostCell: UICollectionViewCell {
     }
     
     @objc func handleLikeTapped() {
-        
+        delegate?.handleLikeTapped(self)
     }
     
     @objc func showActionSheet() {
