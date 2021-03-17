@@ -214,11 +214,15 @@ extension PostController: ActionSheetLauncherDelegate {
         switch option {
         case .follow(let user):
             UserService.shared.followUser(uid: user.uid) { (err, ref) in
-                print("DEBUG: Did follow user \(user.username)")
+                self.post.user.isFollowed = true
+                self.collectionView.reloadData()
+                
+                NotificationService.shared.uploadNotification(toUser: self.post.user, type: .follow)
             }
         case .unfollow(let user):
             UserService.shared.unfollowUser(uid: user.uid) { (err, ref) in
-                print("DEBUG: Did unfollow user \(user.username)")
+                self.post.user.isFollowed = false
+                self.collectionView.reloadData()
             }
         case .report:
             print("DEBUG: Report tweet")

@@ -25,4 +25,9 @@ struct NotificationService {
         
         REF_NOTIFICATIONS.child(user.uid).childByAutoId().updateChildValues(values)
     }
+    
+    func deleteNotification() {
+        
+    }
 }
+

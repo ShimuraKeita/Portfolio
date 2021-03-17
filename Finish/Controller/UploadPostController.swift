@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import Firebase
 import ActiveLabel
 
 class UploadPostController: UIViewController {
     
     //MARK: - Properties
     
-    private let user: User
+    private var user: User
     private let config: UploadPostConfiguration
     private lazy var viewModel = UploadPostViewModel(config: config)
     
@@ -86,7 +87,9 @@ class UploadPostController: UIViewController {
             }
 
             if case .reply(let post) = self.config {
-                
+                NotificationService.shared.uploadNotification(toUser: post.user,
+                                                              type: .reply,
+                                                              postID: post.postID)
             }
 
             self.dismiss(animated: true, completion: nil)
