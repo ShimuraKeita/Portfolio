@@ -29,13 +29,13 @@ class UserCell: UICollectionViewCell {
         return iv
     }()
     
-    private let usernameLabel: UILabel = {
+    private let fullnameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
         return label
     }()
     
-    private let fullnameLabel: UILabel = {
+    private let usernameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .lightGray
@@ -79,7 +79,7 @@ class UserCell: UICollectionViewCell {
         profileImageView.anchor(top: topAnchor, left: leftAnchor,
                                 paddingTop: 4, paddingLeft: 12)
         
-        let stack = UIStackView(arrangedSubviews: [usernameLabel, fullnameLabel, sickLabel, bioLabel])
+        let stack = UIStackView(arrangedSubviews: [fullnameLabel, usernameLabel, sickLabel, bioLabel])
         stack.axis = .vertical
         stack.spacing = 4
         stack.alignment = .leading
@@ -119,7 +119,7 @@ class UserCell: UICollectionViewCell {
         
         profileImageView.sd_setImage(with: user.profileImageUrl)
         
-        usernameLabel.text = user.username
+        usernameLabel.text = viewModel.usernameText
         fullnameLabel.text = user.fullname
         sickLabel.text = user.sick
         bioLabel.text = user.bio
