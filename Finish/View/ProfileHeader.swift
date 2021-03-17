@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ProfileHeaderDelegate: class {
+    func handleEditProfileFollow(_ header: ProfileHeader)
+}
+
 class ProfileHeader: UICollectionReusableView {
     
     //MARK: - Properties
@@ -15,6 +19,7 @@ class ProfileHeader: UICollectionReusableView {
         didSet { configure() }
     }
     
+    weak var delegate: ProfileHeaderDelegate?
     private let filterBar = ProfileFilterView()
     
     private let profileImageView: UIImageView = {
@@ -59,7 +64,7 @@ class ProfileHeader: UICollectionReusableView {
         button.layer.borderColor = UIColor.systemPink.cgColor
         button.layer.borderWidth = 0.5
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-//        button.addTarget(self, action: #selector(handleEditProfileFollowTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleEditProfileFollow), for: .touchUpInside)
         return button
     }()
     
@@ -149,6 +154,10 @@ class ProfileHeader: UICollectionReusableView {
     }
     
     //MARK: - Selectors
+    
+    @objc func handleEditProfileFollow() {
+        delegate?.handleEditProfileFollow(self)
+    }
 
     //MARK: - Helpers
     
