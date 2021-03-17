@@ -38,6 +38,7 @@ class FeedController: UICollectionViewController {
         configureUI()
         fetchPosts()
         configureSearchController()
+        checkIfUserIsFollowed(posts: posts)
     }
     
     override func viewWillAppear(_ animated: Bool) {

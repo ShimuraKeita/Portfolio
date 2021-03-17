@@ -118,6 +118,12 @@ class PostCell: UICollectionViewCell {
         addSubview(actionStack)
         actionStack.centerX(inView: self)
         actionStack.anchor(bottom: bottomAnchor, paddingBottom: 8)
+        
+        let underlineView = UIView()
+        underlineView.backgroundColor = .lightGray
+        addSubview(underlineView)
+        underlineView.anchor(left: leftAnchor, bottom: bottomAnchor,
+                             right: rightAnchor, height: 0.3)
     }
     
     required init?(coder: NSCoder) {
