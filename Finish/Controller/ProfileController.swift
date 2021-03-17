@@ -189,6 +189,10 @@ extension ProfileController: ProfileHeaderDelegate {
             }
         }
     }
+    
+    func didSelect(filter: ProfileFilterOptions) {
+        self.selectedFilter = filter
+    }
 }
 
 // MARK: - ActionSheetLauncherDelegate
