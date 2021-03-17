@@ -61,6 +61,12 @@ class PostController: UICollectionViewController {
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.register(PostHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
     }
+    
+    fileprivate func showActionSheet(forUser user: User) {
+        actionSheetLauncher = ActionSheetLauncher(user: user)
+        actionSheetLauncher.delegate = self
+        actionSheetLauncher.show()
+    }
 }
 
 //MARK: - UICollectionViewDataSource
@@ -74,12 +80,6 @@ extension PostController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PostCell
         cell.post = replies[indexPath.row]
         return cell
-    }
-    
-    fileprivate func showActionSheet(forUser user: User) {
-        actionSheetLauncher = ActionSheetLauncher(user: user)
-        actionSheetLauncher.delegate = self
-        actionSheetLauncher.show()
     }
 }
 
