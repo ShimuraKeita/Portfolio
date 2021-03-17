@@ -23,14 +23,14 @@ class ProfileController: UICollectionViewController {
     }
     
     private var posts = [Post]()
-    private var likedTweets = [Post]()
+    private var likedPosts = [Post]()
     private var replies = [Post]()
     
     private var currentDataSource: [Post] {
         switch selectedFilter {
         case .posts: return posts
         case .replies: return replies
-        case .likes: return likedTweets
+        case .likes: return likedPosts
         }
     }
     
@@ -50,6 +50,7 @@ class ProfileController: UICollectionViewController {
         
         configureCollectionView()
         fetchPosts()
+        fetchLikedPosts()
         checkIfUserIsFollowed()
         fetchUserStats()
     }
@@ -69,6 +70,16 @@ class ProfileController: UICollectionViewController {
             self.posts = posts.sorted(by: { $0.timestamp > $1.timestamp })
             self.checkIfUserLikedPosts()
         }
+    }
+    
+    func fetchLikedPosts() {
+        PostService.shared.fetchLikes(forUser: user) { posts in
+            self.likedPosts = posts.sorted(by: { $0.timestamp > $1.timestamp })
+        }
+    }
+    
+    func fetchReplies() {
+        
     }
     
     func checkIfUserLikedPosts() {
@@ -105,6 +116,9 @@ class ProfileController: UICollectionViewController {
         
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
+        
+        guard let tabHeight = tabBarController?.tabBar.frame.height else { return }
+        collectionView.contentInset.bottom = tabHeight
     }
     
     fileprivate func showActionSheet(forUser user: User) {
@@ -153,7 +167,10 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 200)
+        let viewModel = PostViewModel(post: currentDataSource[indexPath.row])
+        let height = viewModel.size(forWidth: view.frame.width).height
+        
+        return CGSize(width: view.frame.width, height: height + 72)
     }
 }
 

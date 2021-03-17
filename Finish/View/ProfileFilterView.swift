@@ -15,14 +15,14 @@ protocol ProfileFilterViewDelegate: class {
 
 class ProfileFilterView: UIView {
     
-    //MARK: - Properties
+    // MARK: - Properties
     
     weak var delegate: ProfileFilterViewDelegate?
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor(named: "backgroundColor")
+        cv.backgroundColor = .white
         cv.delegate = self
         cv.dataSource = self
         return cv
@@ -34,12 +34,11 @@ class ProfileFilterView: UIView {
         return view
     }()
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = UIColor(named: "backgroundColor")
         collectionView.register(ProfileFilterCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         let selectedIndexPath = IndexPath(row: 0, section: 0)
@@ -60,7 +59,7 @@ class ProfileFilterView: UIView {
     }
 }
 
-//MARK: - UICollectionViewDataSource
+// MARK: - UICollectionViewDataSource
 
 extension ProfileFilterView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -77,16 +76,18 @@ extension ProfileFilterView: UICollectionViewDataSource {
     }
 }
 
-//MARK: - UICollectionViewDelegate
+// MARK: - UICollectionViewDelegate
 
 extension ProfileFilterView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
-        
         let xPosition = cell?.frame.origin.x ?? 0
+
         UIView.animate(withDuration: 0.3) {
             self.underlineView.frame.origin.x = xPosition
         }
+        
+        delegate?.filterView(self, didSelect: indexPath.row)
     }
 }
 
@@ -102,3 +103,4 @@ extension ProfileFilterView: UICollectionViewDelegateFlowLayout {
         return 0
     }
 }
+
