@@ -17,7 +17,10 @@ struct PostService {
                       KEY_LIKES: 0,
                       KEY_UID: uid] as [String : Any]
                 
-        REF_POSTS.childByAutoId().updateChildValues(values, withCompletionBlock: completion)
+        REF_POSTS.childByAutoId().updateChildValues(values) { (err, ref) in
+            guard let postID = ref.key else { return }
+            REF_USER_POSTS.child(uid).updateChildValues([postID: 1], withCompletionBlock: completion)
+        }
     }
     
     func fetchPosts(completion: @escaping([Post]) -> Void) {

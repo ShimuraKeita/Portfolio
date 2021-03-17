@@ -43,7 +43,7 @@ class FeedController: UICollectionViewController {
     //MARK: - Helpers
     
     func configureUI() {
-        view.backgroundColor = UIColor(named: "backgroundColor")
+        collectionView.backgroundColor = UIColor(named: "backgroundColor")
         navigationItem.title = "タイムライン"
         
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
