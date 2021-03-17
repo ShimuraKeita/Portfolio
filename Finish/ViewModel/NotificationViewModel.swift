@@ -51,7 +51,7 @@ struct NotificationViewModel {
     }
     
     var followButtonText: String {
-        return user.isFollowed ? "フォローする" : "フォロー中"
+        return user.isFollowed ? "フォロー中" : "フォローする"
     }
     
     var followButtonBackgroundColor: UIColor {

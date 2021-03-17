@@ -39,9 +39,10 @@ class NotificationCell: UITableViewCell {
     
     private lazy var followButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Loading", for: .normal)
+        button.layer.cornerRadius = 3
         button.layer.borderColor = UIColor.systemPink.cgColor
-        button.layer.borderWidth = 2
+        button.layer.borderWidth = 0.5
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         button.addTarget(self, action: #selector(handleFollowTapped), for: .touchUpInside)
         return button
     }()
@@ -59,6 +60,8 @@ class NotificationCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        selectionStyle = .none
+        
         let stack = UIStackView(arrangedSubviews: [profileImageView, notificationLabel])
         stack.spacing = 8
         stack.alignment = .center
@@ -68,10 +71,9 @@ class NotificationCell: UITableViewCell {
         stack.anchor(right: rightAnchor, paddingRight: 12)
         
         addSubview(followButton)
-        followButton.centerY(inView: self)
-        followButton.setDimensions(width: 92, height: 32)
-        followButton.layer.cornerRadius = 32 / 2
-        followButton.anchor(right: rightAnchor, paddingRight: 12)
+        followButton.anchor(top: stack.bottomAnchor, left: leftAnchor,
+                                       right: rightAnchor, paddingTop: 16,
+                                       paddingLeft: 24, paddingRight: 24)
     }
     
     required init?(coder: NSCoder) {
