@@ -15,7 +15,7 @@ class PostController: UICollectionViewController {
     //MARK: - Properties
     
     private let post: Post
-    
+    private let actionSheetLauncher: ActionSheetLauncher
     private var replies = [Post]() {
         didSet { collectionView.reloadData() }
     }
@@ -24,6 +24,7 @@ class PostController: UICollectionViewController {
     
     init(post: Post) {
         self.post = post
+        self.actionSheetLauncher = ActionSheetLauncher(user: post.user)
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
     
@@ -76,6 +77,7 @@ extension PostController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! PostHeader
         header.post = post
+        header.delegate = self
         return header
     }
     
@@ -98,5 +100,11 @@ extension PostController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 200)
+    }
+}
+
+extension PostController: PostHeaderDelegate {
+    func showActionSheet() {
+        actionSheetLauncher.show()
     }
 }

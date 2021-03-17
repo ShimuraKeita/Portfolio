@@ -8,6 +8,10 @@
 import UIKit
 import ActiveLabel
 
+protocol PostHeaderDelegate: class {
+    func showActionSheet()
+}
+
 class PostHeader: UICollectionReusableView {
     
     //MARK: - Properties
@@ -15,6 +19,8 @@ class PostHeader: UICollectionReusableView {
     var post: Post? {
         didSet { configure() }
     }
+    
+    weak var delegate: PostHeaderDelegate?
     
     private lazy var profileImageView: UIImageView = {
         let iv = UIImageView()
@@ -173,7 +179,7 @@ class PostHeader: UICollectionReusableView {
     }
     
     @objc func showActionSheet() {
-
+        delegate?.showActionSheet()
     }
     
     @objc func handleCommentTapped() {
