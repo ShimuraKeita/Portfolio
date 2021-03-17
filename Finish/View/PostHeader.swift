@@ -9,6 +9,9 @@ import UIKit
 import ActiveLabel
 
 protocol PostHeaderDelegate: class {
+    func handleProfileImageTapped(_ header: PostHeader)
+    func handleReplyTapped(_ header: PostHeader)
+    func handleLikeTapped(_ header: PostHeader)
     func showActionSheet(_ header: PostHeader)
 }
 
@@ -159,7 +162,7 @@ class PostHeader: UICollectionReusableView {
     //MARK: - Selectors
     
     @objc func handleProfileImageTapped() {
-
+        delegate?.handleProfileImageTapped(self)
     }
     
     @objc func showActionSheet() {
@@ -167,11 +170,11 @@ class PostHeader: UICollectionReusableView {
     }
     
     @objc func handleCommentTapped() {
-        
+        delegate?.handleReplyTapped(self)
     }
     
     @objc func handleLikeTapped() {
-        
+        delegate?.handleLikeTapped(self)
     }
     
     //MARK: - Helpers
