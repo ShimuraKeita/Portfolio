@@ -147,6 +147,12 @@ class ProfileHeader: UICollectionReusableView {
         
         addSubview(underlineView)
         underlineView.anchor(left: leftAnchor, bottom: bottomAnchor, width: frame.width / 3, height: 2)
+        
+        let underlineView = UIView()
+        underlineView.backgroundColor = .lightGray
+        addSubview(underlineView)
+        underlineView.anchor(left: leftAnchor, bottom: bottomAnchor,
+                             right: rightAnchor, height: 0.3)
     }
     
     required init?(coder: NSCoder) {
