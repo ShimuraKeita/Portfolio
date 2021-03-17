@@ -88,28 +88,6 @@ class PostHeader: UICollectionReusableView {
     
     private lazy var likesLabel = UILabel()
     
-    private lazy var statsView: UIView = {
-        let view = UIView()
-        
-        let divider1 = UIView()
-        divider1.backgroundColor = .lightGray
-        view.addSubview(divider1)
-        divider1.anchor(top: view.topAnchor, left: view.leftAnchor,
-                        right: view.rightAnchor, paddingLeft: 8, height: 0.3)
-        
-        view.addSubview(likesLabel)
-        likesLabel.centerY(inView: view)
-        likesLabel.anchor(left: view.leftAnchor, paddingLeft: 16)
-        
-        let divider2 = UIView()
-        divider2.backgroundColor = .lightGray
-        view.addSubview(divider2)
-        divider2.anchor(left: view.leftAnchor, bottom: view.bottomAnchor,
-                        right: view.rightAnchor, paddingLeft: 8, height: 0.3)
-        
-        return view
-    }()
-    
     private lazy var commentButton: UIButton = {
         let button = createButton(withImageName: "comment")
         button.addTarget(self, action: #selector(handleCommentTapped), for: .touchUpInside)
@@ -156,16 +134,22 @@ class PostHeader: UICollectionReusableView {
         optionsButton.centerY(inView: stack)
         optionsButton.anchor(right: rightAnchor, paddingRight: 8)
         
-        addSubview(statsView)
-        statsView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor,
-                         right: rightAnchor, paddingTop: 12, height: 40)
+        addSubview(likesLabel)
+        likesLabel.anchor(top: dateLabel.bottomAnchor, left: leftAnchor,
+                         right: rightAnchor, paddingTop: 12, paddingLeft: 16)
         
         let actionStack = UIStackView(arrangedSubviews: [commentButton, likeButton])
         actionStack.spacing = 72
         
         addSubview(actionStack)
         actionStack.centerX(inView: self)
-        actionStack.anchor(top: statsView.bottomAnchor, paddingTop: 16)
+        actionStack.anchor(top: likesLabel.bottomAnchor, paddingTop: 16)
+        
+        let underlineView = UIView()
+        underlineView.backgroundColor = .lightGray
+        addSubview(underlineView)
+        underlineView.anchor(left: leftAnchor, bottom: bottomAnchor,
+                             right: rightAnchor, height: 0.3)
     }
     
     required init?(coder: NSCoder) {
