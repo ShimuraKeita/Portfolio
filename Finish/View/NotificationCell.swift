@@ -74,14 +74,25 @@ class NotificationCell: UITableViewCell {
     // MARK: - Selector
     
     @objc func handleProfileImageTapped() {
+        
     }
     
     @objc func handleFollowTapped() {
+        
     }
     
     // MARK: - Helpers
     
     func configure() {
+        guard let notification = notification else { return }
+        let viewModel = NotificationViewModel(notification: notification)
         
+        profileImageView.sd_setImage(with: viewModel.profileImageUrl)
+        notificationLabel.attributedText = viewModel.notificationText
+        
+        followButton.isHidden = viewModel.shouldHideFollowButton
+        followButton.setTitle(viewModel.followButtonText, for: .normal)
+        followButton.setTitleColor(viewModel.followButtonTextColor, for: .normal)
+        followButton.backgroundColor = viewModel.followButtonBackgroundColor
     }
 }
