@@ -57,6 +57,8 @@ extension SearchController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! UserCell
         
+        cell.user = users[indexPath.row]
+        
         return cell
     }
 }

@@ -107,6 +107,19 @@ class UserCell: UICollectionViewCell {
     //MARK: - Helpers
     
     func configure() {
+        guard let user = user else { return }
+        let viewModel = UserCellViewModel(user: user)
         
+        profileImageView.sd_setImage(with: user.profileImageUrl)
+        
+        usernameLabel.text = user.username
+        fullnameLabel.text = user.fullname
+        sickLabel.text = user.sick
+        bioLabel.text = user.bio
+        
+        followButton.setTitle(viewModel.followButtonText, for: .normal)
+        followButton.setTitleColor(viewModel.followButtonTextColor, for: .normal)
+        followButton.backgroundColor = viewModel.followButtonBackgroundColor
+        followButton.isHidden = viewModel.shouldHidefollowButton
     }
 }
