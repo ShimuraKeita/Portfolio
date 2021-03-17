@@ -11,6 +11,10 @@ class UserCell: UICollectionViewCell {
     
     //MARK: - Properties
     
+    var user: User? {
+        didSet { configure() }
+    }
+    
     private let profileImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
@@ -22,14 +26,12 @@ class UserCell: UICollectionViewCell {
     private let usernameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.text = "venom"
         return label
     }()
     
     private let fullnameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.text = "Eddie Brock"
         label.textColor = .lightGray
         return label
     }()
@@ -38,21 +40,18 @@ class UserCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = UIColor(named: "labelTextColor")
-        label.text = "venom"
         return label
     }()
     
     private let bioLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.text = "Eddie Brock"
         label.textColor = .lightGray
         return label
     }()
     
     private lazy var followButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("読み込み中", for: .normal)
         button.layer.cornerRadius = 3
         button.layer.borderColor = UIColor.systemPink.cgColor
         button.layer.borderWidth = 0.5
@@ -106,4 +105,8 @@ class UserCell: UICollectionViewCell {
     }
     
     //MARK: - Helpers
+    
+    func configure() {
+        
+    }
 }
